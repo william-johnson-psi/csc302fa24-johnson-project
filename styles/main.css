@@ -1,0 +1,15 @@
+
+
+
+#origin-image-display {
+    height: auto;
+    width:25%;
+}
+
+
+
+#tile-grid-boxes td {
+    border: 3px solid black;
+    width:5px;
+    height:5px;
+}
