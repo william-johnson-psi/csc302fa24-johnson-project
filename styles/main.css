@@ -29,12 +29,11 @@
 }
 
 /* Each Cell in Grid */
-#tile-grid-cells tr .cell {
+.cell {
     border: 1.5px solid black;
     width: 30px;
     height: 30px;
 }
-
 
 .cell-blank {
     background-color: white;
@@ -47,4 +46,29 @@
     text-align:center;
     font-family:monospace;
     font-size: 1.8em;
+}
+
+.cell-data-row {
+    border-top: 0.75mm ridge black;
+    border-right: 0.75mm ridge black;
+    border-bottom: 0.75mm ridge black;
+    width: 60px;
+    height:30px;
+    font-family: monospace;
+    font-size: 1.5em; 
+    text-align: right;
+    white-space: nowrap;
+    word-spacing: -0.25em;
+}
+
+.cell-data-col {
+    border-right: 0.75mm ridge black;
+    border-left: 0.75mm ridge black;
+    border-bottom: 0.75mm ridge black;
+    height:60px;
+    width: 30px;
+    font-family: monospace;
+    font-size: 1.5em;
+    vertical-align: bottom;
+    text-align: center;
 }
