@@ -7,8 +7,41 @@ $(document).ready(function() {
     $(document).on('input', '#nonogram-gen-cols', updateRowInput);
     
     /* Handle Submit Button, then generating empty grid. */ 
-    $(document).on('click', '#gen-nonogram-btn', generateEmptyGrid);
+    $(document).on('click', '#gen-nonogram-btn', updateInputRowsCols);
+
+    /* For Nonogram Creatiion, Handle Filling, X'ing, or Erasing Cells */ 
+    $(document).on('click', '.cell', changeCell);
+    /* Generate Grid */
+    initGridPageLoad();
+
 })
+
+
+
+
+/**
+ * Update Row/Col Inputs in the Session Storage.
+ */
+function updateInputRowsCols() {
+    sessionStorage.inputRows = $('#nonogram-gen-rows').val();
+    sessionStorage.inputCols = $('#nonogram-gen-cols').val();
+}
+
+
+/**
+ * On Page Load, load default tile grid (5x5) or last submitted from sessionStorage
+ */
+function initGridPageLoad() {
+    if (sessionStorage.inputRows === undefined || sessionStorage.inputCols === undefined) {
+        sessionStorage.inputRows = 5;
+        sessionStorage.inputCols = 5; 
+    }
+
+    /* Remember last used values for input boxes */
+    $('#nonogram-gen-rows').val(sessionStorage.inputRows);
+    $('#nonogram-gen-cols').val(sessionStorage.inputCols);
+    generateEmptyGrid(sessionStorage.inputRows, sessionStorage.inputCols);
+}
 
 
 /**
@@ -50,10 +83,42 @@ function checkMinMaxViolations() {
     return [false, null];
 }
 
+
+/**
+ * Modify Cell and change to either Filled, X'd, or Blank, in this respecive order.
+ * 
+ */
+function changeCell() {
+    curCell = $(this);
+    if (curCell.hasClass("cell-blank")) {
+        curCell.removeClass("cell-blank");
+        curCell.addClass("cell-filled");
+        return; 
+    }
+
+    if (curCell.hasClass("cell-filled")) {
+        curCell.removeClass("cell-filled");
+        curCell.addClass("cell-crossed");
+        curCell.text('X');
+        return;
+    }
+
+    if (curCell.hasClass("cell-crossed")) {
+        curCell.removeClass("cell-crossed");
+        curCell.addClass("cell-blank");
+        curCell.text('');
+        return;
+    }
+}
+
 /**
  * With Row and Col Inputs #nonogram-gen-rows and #nonogram-gen-cols, append a grid layout to website
+ * 
+ * Parameters:
+ *     rows : the amount of rows to create in nonogram
+ *     cols : the amoutn of cols to create in nonogram.
  */
-function generateEmptyGrid() {
+function generateEmptyGrid(rows, cols) {
     /* Set Grid */
     grid = $('#tile-grid-cells');
     /* Get Row Col Amount from Input Fields in HTML File */ 
@@ -72,18 +137,14 @@ function generateEmptyGrid() {
                 break;
         }
     }
-    else {
-        rowAmount = $('#nonogram-gen-rows').val();
-        colAmount = $('#nonogram-gen-cols').val();
-    }
     /* Clear Grid of all TD and TR */
     grid.empty(); 
-    for (var i = 0; i < rowAmount; i++) {
+    for (var i = 0; i < rows; i++) {
         /* Create Row with ID */
         grid.append('<tr id="row-' + i + '">');
-        for (var v = 0; v < colAmount; v++) {
+        for (var v = 0; v < cols; v++) {
             /* Append Cols to the Row we just created */
-            $('#row-' + i).append('<td id="row-' + i + 'col-' + v + '" class="cell"></td>');
+            $('#row-' + i).append('<td id="row-' + i + 'col-' + v + '" class="cell cell-blank"></td>');
         }
         /* Close Row */
         grid.append('</tr>');
