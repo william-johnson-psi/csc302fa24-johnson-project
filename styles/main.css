@@ -1,4 +1,7 @@
-
+* {
+    margin: 0;
+    padding: 0;
+}
 
 
 #origin-image-display {
@@ -8,8 +11,40 @@
 
 
 
-#tile-grid-boxes td {
-    border: 3px solid black;
-    width:5px;
-    height:5px;
+
+#nonogram-gen-inputs-container {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
+/* Main Grid */
+#tile-grid-cells {
+    border-collapse:collapse;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
+/* Each Cell in Grid */
+#tile-grid-cells tr .cell {
+    border: 1.5px solid black;
+    width: 30px;
+    height: 30px;
+}
+
+
+.cell-blank {
+    background-color: white;
+}
+.cell-filled {
+    background-color: black;
+}
+
+.cell-crossed {
+    text-align:center;
+    font-family:monospace;
+    font-size: 1.8em;
 }
