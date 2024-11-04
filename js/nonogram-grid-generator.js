@@ -126,25 +126,41 @@ function generateEmptyGrid(rows, cols) {
     if (violationChecker[0]) {
         switch(violationChecker[1]) {
             case 0:
-                rowAmount = 5;
-                colAmount = 5;
+                rows = 5;
+                cols = 5;
                 alert("Minimum Row/Col Value must be 5 or greater.\nAutomatically Setting Values to 5.");
                 break;
             case 1:
-                rowAmount = 50;
-                colAmount = 50;
+                rows = 50;
+                cols = 50;
                 alert("Maximum Row/Col Value mus tbe 50 or lower.\nAutomatically Setting Values to 50.");
                 break;
         }
     }
     /* Clear Grid of all TD and TR */
     grid.empty(); 
+
+    /* Before creating rows, establish row of col data cells */
+    grid.append('<tr id="column-data-cells">')
+    /* Adding an empty table data to align rows/cols properly, because in HTML the row data cells can mess up the alignment */
+    grid.append('<td></td>');
+    for (var i = 0; i < cols; i++) {
+        grid.append('<td id="data-cell-col-' + i + '" class="cell-data-col"></td>');
+    }
+    grid.append('</tr>');
+
+
+    /* Here, we create the data-cell-rows as well as the rows of the grid themselves.*/
     for (var i = 0; i < rows; i++) {
         /* Create Row with ID */
         grid.append('<tr id="row-' + i + '">');
+        /* Init Cur Row to Append to */
+        curRow = $('#row-' + i);
+        /* Add Data Cell at Beginning */
+        curRow.append('<td class="cell-data-row" id="data-cell-row-' + i + '"></td>');
         for (var v = 0; v < cols; v++) {
             /* Append Cols to the Row we just created */
-            $('#row-' + i).append('<td id="row-' + i + 'col-' + v + '" class="cell cell-blank"></td>');
+            curRow.append('<td id="row-' + i + 'col-' + v + '" class="cell cell-blank"></td>');
         }
         /* Close Row */
         grid.append('</tr>');
