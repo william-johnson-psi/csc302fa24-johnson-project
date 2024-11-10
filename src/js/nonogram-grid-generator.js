@@ -61,7 +61,7 @@ function updateRowInput() {
 /**
  * If any input field violates Min/Maxes of Nonogram Input Fields, return a tuple. Refer below for more information
  * 
- * Return Value:
+ * @returns {Array.<{0: boolean, 2: number}>}
  *    [boolean, 0 or 1 or null] - 
  *    Item 0: 
  *        True/False whether if violation was found
@@ -114,9 +114,9 @@ function changeCell() {
 /**
  * With Row and Col Inputs #nonogram-gen-rows and #nonogram-gen-cols, append a grid layout to website
  * 
- * Parameters:
- *     rows : the amount of rows to create in nonogram
- *     cols : the amoutn of cols to create in nonogram.
+ *
+ * @param {number} rows : the amount of rows to create in nonogram
+ * @param {number} cols : the amount of cols to create in nonogram.
  */
 function generateEmptyGrid(rows, cols) {
     /* Set Grid */
@@ -148,7 +148,6 @@ function generateEmptyGrid(rows, cols) {
         grid.append('<td id="data-cell-col-' + i + '" class="cell-data-col"></td>');
     }
     grid.append('</tr>');
-
 
     /* Here, we create the data-cell-rows as well as the rows of the grid themselves.*/
     for (var i = 0; i < rows; i++) {
@@ -195,11 +194,11 @@ function updateDataCells() {
 /**
  * Given a data-row-cell sequence, return a formatted string for the cell
  * 
- * Parameters:
- *     sequence: Sequence of ints in an array, you can use getRowSequence for this parameter. 
  * 
- * Return Value: 
- *     Formatted string, could look like "5 4 9 7 20"
+ * @param {Array.<number>} sequence: Sequence of ints in an array, you can use getRowSequence for this parameter. 
+ * 
+ * 
+ * @returns {string} Formatted string, could look like "5 4 9 7 20"
  */
 function buildRowSequenceString(sequence) {
     formattedString = "";
@@ -217,11 +216,11 @@ function buildRowSequenceString(sequence) {
 /**
  * Given a data-row-cell sequence, return a formatted string for the cell
  * 
- * Parameters:
- *     sequence: Sequence of ints in an array, you can use getColSequence for this parameter. 
  * 
- * Return Value:
- *     Formatted string, could look like "5\n4\n9\n7\n20"
+ * @param {Array.<number>} sequence: Sequence of ints in an array, you can use getColSequence for this parameter. 
+ * 
+ * 
+ * @returns {string} Formatted string, could look like "5\n4\n9\n7\n20"
  */
 function buildColSequenceString(sequence) {
     formattedString = "" 
@@ -235,14 +234,15 @@ function buildColSequenceString(sequence) {
     }
     return formattedString;
 }
+
 /**
  * Given a row number, find the sequence of filled cells in that row 
  * 
- * Parameters:
- *     row: A row index that is used to access a specific row in our grid structure.
  * 
- * Return Value:
- *     Array of Ints (i.e [20, 4, 7])
+ * @param {number} row: A row index that is used to access a specific row in our grid structure.
+ * 
+ * 
+ * @returns {Array.<number>} Array of Ints (i.e [20, 4, 7])
  */
 function getRowSequence(row) {
     /* Getting current RowCol values */
@@ -280,11 +280,11 @@ function getRowSequence(row) {
 /**
  * Given a col number, find the sequence of filled cells in that column
  * 
- * Parameters:
- *     col: A col index that is used to access a specific col in our grid structure. 
  * 
- * Return Value:
- *     Array of Ints (i.e [20, 4, 7])
+ * @param {number} col: A col index that is used to access a specific col in our grid structure. 
+ * 
+ * 
+ * @returns {Array.<number>} Array of Ints (i.e [20, 4, 7])
  */
 function getColSequence(col) {
     /* Getting current RowCol values */
