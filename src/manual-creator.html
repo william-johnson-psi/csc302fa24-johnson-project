@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nonogrammer | Manual Creator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  <!--Adding JQuery-->
+    <script src="js/image-processor.js"></script>
+    <script src="js/nonogram-grid-generator.js"></script>
+    <link rel="stylesheet" href="styles/nonogram.css">
+</head>
+<body>
+    <header>
+
+    </header>
+    <div id="nonogram-gen-inputs-container">
+        <h3>Choose the size of your nonogram.</h3>
+        <form action="" method="GET">
+            <!-- I may use GET parameters, so I'll just keep this here for now.-->
+            <p style="display:inline">Rows</p><input type="number" id="nonogram-gen-rows" value="5" min="5" max="50" name="rows"><p style="display:inline">Columns</p><input type="number" id="nonogram-gen-cols" value="5" min="5" max="50" name="cols">
+            <input id="gen-nonogram-btn" type="submit" value="Generate Grid">
+        </form>
+    </div>
+
+    <div>        
+        <table id="tile-grid-cells">
+        </table>
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
