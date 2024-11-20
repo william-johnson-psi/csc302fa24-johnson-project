@@ -4,22 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nonogrammer Main</title>
-    <link rel="stylesheet" src="styles/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  <!--Adding JQuery-->
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="js/login-logic.js"></script>
 </head>
 <body>
     <header>
         <h1>Nonogrammer</h1>
     </header>
+
+    <div id="welcome-container">
+    </div>
+
     <div>
-        <div id="login-container-">
+        <div id="signin-container">
             <h2>Sign In</h2>
-            <form>
+            <form method="get">
+                <input type="hidden" name="action" value="signin">
+                <p>Username:</p><input type="text" name="username">
+                <p>Password:</p><input type="password" name="password">
+                <input type="submit" value="Sign In">
+            </form>
+        </div>
+        <br>
+        <div id="signup-container">
+            <h2>Sign Up</h2>
+            <form method="post">
                 <input type="hidden" name="action" value="signup">
                 <p>Username:</p><input type="text" name="username">
                 <p>Password:</p><input type="password" name="password">
+                <input type="submit" value="Sign Up">
             </form>
         </div>
+        <div id="signout-container" class="hidden">
+            <form method="post">
+                <input type="hidden" name="action" value="signout"> 
+                <input type="submit" value="Sign Out">
+            </form>
+        </div>
+
     </div>
+
     <footer>
 
     </footer>
