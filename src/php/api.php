@@ -30,8 +30,10 @@ if (array_key_exists('action', $_POST)) {
         echo json_encode(signin($_POST));
     } else if ($action == 'signout') {
         echo json_encode(signout());
-    } else if ($action =='get-signin') {
+    } else if ($action == 'get-signin') {
         echo json_encode(signedInOrDie());
+    } else if ($action == 'save-nonogram') {
+        echo json_encode(saveNonogram($_SESSION['userId'], $_POST['rows'], $_POST['cols'], $_POST['ngData']));
     }
 }
 
