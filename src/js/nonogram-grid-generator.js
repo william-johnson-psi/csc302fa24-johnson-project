@@ -8,8 +8,9 @@ $(document).ready(function() {
     
     /* Handle Submit Button, then generating empty grid. */ 
     $(document).on('click', '#gen-nonogram-btn', updateInputRowsCols);
-
-    /* For Nonogram Creatiion, Handle Filling, X'ing, or Erasing Cells */ 
+    /* Handle Saving Raw Nonogram Data */ 
+    $(document).on('click', '#save-nonogram-btn', getNonogramData);
+    /* For Nonogram Creation, Handle Filling, X'ing, or Erasing Cells */ 
     $(document).on('click', '.cell', changeCell);
     /* Generate Grid */
     initGridPageLoad();
@@ -316,4 +317,40 @@ function getColSequence(col) {
         }
     }
     return sequence;
+}
+
+/**
+ * Get the nonogram data in one long string and tell us how many rows/columns are in it as well.
+ * 
+ * Raw nonogram data will just be organized this:  0--00-00-00----00-0---00--00000--0-00--
+ * Where 0 = filled cell, - = empty cell 
+ * In an alogrithm that parses this, I imagine we would divvy our for loops based off the given rows/cols. 
+ * 
+ * @returns {array-key} {nonogram-data: string, rows: int, cols: int}
+ * 
+ */
+function getNonogramData() {
+    ngData = ''; 
+    curCell = null;
+    for (var i = 0; i < sessionStorage.inputRows; i++) {
+        for (var v = 0; v < sessionStorage.inputCols; v++) {
+            curCell = $('#row-' + i + 'col-' + v);
+            if (curCell.hasClass('cell-filled')) {
+                ngData += '0';
+            }
+            else {
+                ngData += '-';
+            }
+        }
+    }
+    console.log({
+        nonogramData: ngData,
+        rows: sessionStorage.inputRows,
+        cols: sessionStorage.inputCols
+    })
+    return {
+        nonogramData: ngData, 
+        rows: sessionStorage.inputRows,
+        cols: sessionStorage.inputCols
+    }
 }

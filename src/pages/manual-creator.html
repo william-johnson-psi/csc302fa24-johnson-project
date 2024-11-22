@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nonogrammer | Manual Creator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  <!--Adding JQuery-->
-    <script src="js/image-processor.js"></script>
-    <script src="js/nonogram-grid-generator.js"></script>
-    <link rel="stylesheet" href="styles/nonogram.css">
+    <script src="../js/nonogram-grid-generator.js"></script>
+    <link rel="stylesheet" href="../styles/nonogram.css">
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
-    <header>
-
+    <header id="universal-header">
+        <h1>Nonogrammer</h1>
+        <p id="profile-menu">Will</p>
     </header>
+
+    <nav id="universal-nav-bar">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="manual-creator.html">Manual Creator</a></li>
+        </ul>
+    </nav>
     <div id="nonogram-gen-inputs-container">
         <h3>Choose the size of your nonogram.</h3>
         <form action="" method="GET">
@@ -25,6 +33,10 @@
     <div>        
         <table id="tile-grid-cells">
         </table>
+    </div>
+
+    <div id="nonogram-submit-container">
+        <input id ="save-nonogram-btn" type="submit" value="Save Nonogram">
     </div>
 
     <footer>
