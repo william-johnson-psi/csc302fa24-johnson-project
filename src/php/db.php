@@ -49,6 +49,21 @@ function createTables() {
     } catch(PDOException $e) {
         echo "Error creating Users table: ".$e;
     }
+
+    // Creating Nonogram Table 
+    try {
+        $dbh->exec('create table if not exists Nonograms('.
+            'id integer primary key autoincrement, '.
+            'userId integer, '.
+            'nonogramData text, '.
+            'rows integer, '.
+            'cols integer, '.
+            'createdAt datetime default(datetime()), '.
+            'updatedAt dateTime default(dateTime()), '.
+            'foreign key (userId) references Users(id))');
+    } catch(PDOException $e) {
+        echo "Error creating Nonograms table: ".$e; 
+    }
 }
 
 /**
@@ -113,6 +128,30 @@ function getUserByUsername($username) {
     return $userData;
 }
 
+/**
+ * Save Nonogram Data to the DB 
+ * 
+ * @param int $userId User id of the user who saved this nonogram.
+ * @param int $rows Amount of rows in nonogram 
+ * @param int $cols Amount of cols in nonogram 
+ * @param string $ngData Nonogram Data formatted like this. '0' = filled, '-'= blank.  : 00--0-0-0---000----000-0-0-00--
+ */
+function saveNonogram($userId, $rows, $cols, $ngData) {
+    global $dbh; 
+    try {
+        $statement = $dbh->prepare('insert into Nonograms(userId, nonogramData, rows, cols) '.
+            'values (:userId, :nonogramData, :rows, :cols)');
+        $statement->execute([
+            ':userId' => $userId,
+            ':nonogramData' => $ngData, 
+            ':rows' => $rows, 
+            ':cols' => $cols,
+        ]);
+    } catch (PDOException $e) {
+        return createError('Error saving nonogram');
+    }
+    return ['success' => true];
+}
 
 /* Create our SQL Tables */
 createTables();

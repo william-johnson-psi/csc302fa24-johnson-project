@@ -9,7 +9,7 @@ $(document).ready(function() {
     /* Handle Submit Button, then generating empty grid. */ 
     $(document).on('click', '#gen-nonogram-btn', updateInputRowsCols);
     /* Handle Saving Raw Nonogram Data */ 
-    $(document).on('click', '#save-nonogram-btn', getNonogramData);
+    $(document).on('click', '#save-nonogram-btn', saveNonogram);
     /* For Nonogram Creation, Handle Filling, X'ing, or Erasing Cells */ 
     $(document).on('click', '.cell', changeCell);
     /* Generate Grid */
@@ -320,6 +320,38 @@ function getColSequence(col) {
 }
 
 /**
+ * Make a request to the API to save the present Nonogram to User. 
+ */
+function saveNonogram() {
+    rawNonogramData = getNonogramData();
+    userData = {
+        action: 'save-nonogram',
+        rows: rawNonogramData.rows,
+        cols: rawNonogramData.cols, 
+        ngData: rawNonogramData.nonogramData,
+    }
+    $.ajax({
+        url: '../php/api.php',
+        method: 'POST', 
+        data: userData,
+        dataType: 'json',
+        success: function(data) {
+            if (data.success) {
+                console.log('Nonogram Data successfully saved');
+            }
+            else {
+                console.log('Nonogram data could not be saved');
+            }
+        },
+        error: function(jqXHR, status, error) {
+            console.log('Error when attempting to save Nonogram data: ' + error);
+            console.log(jqXHR);
+        }
+    })
+}
+
+
+/**
  * Get the nonogram data in one long string and tell us how many rows/columns are in it as well.
  * 
  * Raw nonogram data will just be organized this:  0--00-00-00----00-0---00--00000--0-00--
@@ -343,11 +375,6 @@ function getNonogramData() {
             }
         }
     }
-    console.log({
-        nonogramData: ngData,
-        rows: sessionStorage.inputRows,
-        cols: sessionStorage.inputCols
-    })
     return {
         nonogramData: ngData, 
         rows: sessionStorage.inputRows,
