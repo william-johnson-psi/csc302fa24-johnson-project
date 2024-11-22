@@ -19,6 +19,13 @@
     margin-top: 2em;
 }
 
+#nonogram-submit-container {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
 /* Main Grid */
 #tile-grid-cells {
     border-collapse:collapse;

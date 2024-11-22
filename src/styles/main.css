@@ -3,6 +3,41 @@
     padding: 0;
 }
 
+
+#universal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#universal-header h1 {
+    position: absolute;
+    left: 50%; /* Move the element -->RIGHT  50% of the screen */
+    transform: translateX(-50%); /* Move the element LEFT by HALF it's width */
+    margin: 0;
+
+}
+
+#universal-header #profile-menu {
+    position: relative;
+    margin-left: auto; /* Move menu to right side by adding some left margin */
+    right: 15%;
+    transform: translateX(50%);
+    font-size: x-large;
+}
+
+
+
+#universal-nav-bar {
+    margin: 1.5em;
+}
+
+#universal-nav-bar ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
 .hidden {
     display: none;
 }
