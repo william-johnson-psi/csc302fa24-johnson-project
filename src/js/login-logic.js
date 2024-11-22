@@ -28,7 +28,25 @@ $(document).ready(function() {
         location.reload(true);
     })
 
-    /*On Page Load/Reload, check if we are signed in */
+    /*On Page Load/Reload, check if we are signed in and change necessary elements */ 
+    getSignedInUserInfo(toggleUserSession, toggleUserSession, toggleUserSession);
+})
+
+/**
+ * Grab the signed in user info, and pass it to the functions given  
+ * 
+ * Each object passed will have a 'success:boolean', use this to decide what to do with the received data.
+ * 
+ *      false indicates that the user is not signed in or there was an issue grabbing that information
+ *      true indicates that the user is signed in, and you will have access to the information from the API
+ * 
+ * {data} will be passed to each given function, so be aware of this when creating a new function or lambda.
+ * 
+ * @param {function} dataSuccessFunction 
+ * @param {function} dataErrorFunction 
+ * @param {function} errorFunction 
+ */
+function getSignedInUserInfo(dataSuccessFunction, dataErrorFunction, errorFunction) {
     $.ajax({
         url: '../php/api.php',
         method: 'POST',
@@ -36,55 +54,40 @@ $(document).ready(function() {
         dataType: 'json',
         success: function(data) {
             if (data.success) {
-                sessionStorage.signedIn = true; 
-                sessionStorage.username = data.username;
-                sessionStorage.userId = data.userId;
-                console.log('Successfully Signed In');
-                toggleUserSession();
+                console.log('Grabbed User Info');
+                dataSuccessFunction(data);
             }
             else {
-                signoutUser();
-                toggleUserSession();
                 console.log(data.error);
+                dataErrorFunction(data);
             }
         },
         error: function(jqXHR, status, error) {
             console.log('Error getting sign in information: ' + error);
+            errorFunction({success:false});
             console.log(jqXHR);
-            signoutUser();
-            toggleUserSession();
         },
-    })
-
-})
-
-/**
- * Update sessionStorage values to sign a user out, and remove the information.
- */
-function signoutUser() {
-    sessionStorage.signedIn = false; 
-    sessionStorage.username = 'null';
-    sessionStorage.userId = 'null';
+    })    
 }
+
+
 /**
  * In the Login Info page, *IF* the user is signed in
  * 1. Hide the sign-in and sign-up containers 
  * 2. Display the sign-out button
- * 3. Display a welcome message in the welcome-container 
+ * 3. Display the welcome message with the given username. 
  */
-function toggleUserSession() {
-    if (sessionStorage.signedIn === 'true') {
+function toggleUserSession(data) {
+    if (data.success) {
         $('#signin-container').addClass('hidden');
         $('#signup-container').addClass('hidden');
         $('#signout-container').removeClass('hidden');
-        /* Now add the welcome message to the welcome-container */
-        $('#welcome-container').append('<h2>Welcome ' + sessionStorage.username + ' (' + sessionStorage.userId + ') !</h2>')
+        $('#welcome-container').append('<h2>Welcome ' + data.username + ' (' + data.userId + ') ! </h2>');
     }
     else {
         $('signin-container').removeClass('hidden');
         $('signin-container').removeClass('hidden');
         $('#signout-container').removeClass('hidden');
-        /* Empty the welcome message container */
         $('#welcome-container').empty();
     }
 }
