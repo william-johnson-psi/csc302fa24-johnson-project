@@ -13,11 +13,12 @@ Most of the logic for updating nonogram data cells, generating grids, and playin
 
 ## Features 
 ** Each feature has it's own unique weighted <ins>difficulty</ins>. I.e Printable Nonograms are very quick and easy to make**
-- [x] Nonogram Grid Generation 
 
-** Difficulty is listed from 1-3. (i.e DIF:3) **
+** Difficulty is listed from 1-3. (i.e DIF:3) **  
+
 ** The EXTRA tasks are not apart of the project, but are more for passion, and does not reflect it's completion** 
 
+- [x] Nonogram Grid Generation 
 - [x] Server-Side Account Management DIF:3 
 - [x] Server-Side Nonogram Storage DIF: 3 
 - [x] Savable & Edittable Nonograms DIF: 3
