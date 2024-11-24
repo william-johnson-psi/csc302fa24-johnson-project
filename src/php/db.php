@@ -55,6 +55,7 @@ function createTables() {
         $dbh->exec('create table if not exists Nonograms('.
             'id integer primary key autoincrement, '.
             'userId integer, '.
+            'name text, '.
             'nonogramData text, '.
             'rows integer, '.
             'cols integer, '.
@@ -138,13 +139,14 @@ function getUserByUsername($username) {
  * 
  * @return array-key ['success' => true] or ['success' => false, 'error' => 'message']
  */
-function saveNonogram($userId, $rows, $cols, $ngData) {
+function saveNonogram($userId, $name, $rows, $cols, $ngData) {
     global $dbh; 
     try {
-        $statement = $dbh->prepare('insert into Nonograms(userId, nonogramData, rows, cols) '.
-            'values (:userId, :nonogramData, :rows, :cols)');
+        $statement = $dbh->prepare('insert into Nonograms(userId, name, nonogramData, rows, cols) '.
+            'values (:userId, :name, :nonogramData, :rows, :cols)');
         $statement->execute([
             ':userId' => $userId,
+            ':name' => $name,
             ':nonogramData' => $ngData, 
             ':rows' => $rows, 
             ':cols' => $cols,

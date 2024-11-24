@@ -398,11 +398,13 @@ function getColSequence(col) {
  */
 function saveNonogram() {
     rawNonogramData = getNonogramData();
+    console.log($('#name-nonogram-btn').val());
     userData = {
         action: 'save-nonogram',
         rows: rawNonogramData.rows,
         cols: rawNonogramData.cols, 
         ngData: rawNonogramData.nonogramData,
+        ngName: $('#name-nonogram-btn').val()
     }
     $.ajax({
         url: '../php/api.php',
