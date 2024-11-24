@@ -14,14 +14,19 @@ Most of the logic for updating nonogram data cells, generating grids, and playin
 ## Features 
 ** Each feature has it's own unique weighted <ins>difficulty</ins>. I.e Printable Nonograms are very quick and easy to make**
 - [x] Nonogram Grid Generation 
-- [x] Server-Side Account Management
-- [x] Server-Side Nonogram Storage 
-- [x] Savable & Edittable Nonograms 
-- [ ] Playable Nonograms 
-- [ ] Printable Nonograms 
-- [ ] Stylized User Interface 
-- [ ] EXTRA: Image->Nonogram Converter
-- [ ] EXTRA: More User Information, Password Constraints, etc. 
+
+** Difficulty is listed from 1-3. (i.e DIF:3) **
+** The EXTRA tasks are not apart of the project, but are more for passion, and does not reflect it's completion** 
+
+- [x] Server-Side Account Management DIF:3 
+- [x] Server-Side Nonogram Storage DIF: 3 
+- [x] Savable & Edittable Nonograms DIF: 3
+- [ ] Playable Nonograms DIF: 3 
+- [ ] Printable Nonograms DIF: 1 
+- [ ] Stylized User Interface DIF: 1 
+- [ ] Quality of Life DIF: 2 
+- [ ] EXTRA: Image->Nonogram Converter DIF: 3 
+- [ ] EXTRA: More User Information, Password Constraints, etc. DIF: 3 
  
 ## Live URL 
 https://digdug.cs.endicott.edu/~wjohnson/nonogrammer/src/index.html
@@ -100,5 +105,10 @@ Parameters: null
 Response: Array of Nonogram SQL Objects, success state 
 
 
+## Testing 
 
+This web app uses Simple API. An important test I did was loading in Nonograms by it's ID through a web parameter. To do this, I would add in the parameters myself like this.
 
+/manual-creator.html?isUsingSavedNG=true&ngId=1  
+
+The goal of this was to access another user's nonogram without permission. I am happy to report that through the checking done in the back-end, disallowed users are not given access to another user's nonogram.
