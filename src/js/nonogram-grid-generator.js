@@ -30,18 +30,44 @@ function updateInputRowsCols() {
 
 
 /**
- * On Page Load, load default tile grid (5x5) or last submitted from sessionStorage
+ * On Page Load, load default tile grid (5x5) or last submitted  row/col size from sessionStorage
+ * OR, load requested saved Nonogram for user editting. 
  */
 function initGridPageLoad() {
-    if (sessionStorage.inputRows === undefined || sessionStorage.inputCols === undefined) {
-        sessionStorage.inputRows = 5;
-        sessionStorage.inputCols = 5; 
+    urlGetParams = new URLSearchParams(window.location.search); 
+    if ((urlGetParams.get('isUsingSavedNG') != null) && (urlGetParams.get('ngId') != null)) {
+        $.ajax({
+            url: '../php/api.php',
+            method: 'POST', 
+            data: {action:'get-nonogram', ngId : urlGetParams.get('ngId')},
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    sessionStorage.inputRows = data.rows;
+                    sessionStorage.inputCols = data.cols;
+                    generateGivenGrid(data);
+                }
+                else {
+                    console.log('Error with retrieving Nonogram');
+                }
+            },
+            error: function(jqXHR, status, error) {
+                console.log('Error retrieving Nonogram: ' + error)
+                console.log(jqXHR);
+            }
+        })
+    }
+    else {
+        if (sessionStorage.inputRows === undefined || sessionStorage.inputCols === undefined) {
+            sessionStorage.inputRows = 5;
+            sessionStorage.inputCols = 5; 
+        }
+        /* Remember last used values for input boxes */
+        $('#nonogram-gen-rows').val(sessionStorage.inputRows);
+        $('#nonogram-gen-cols').val(sessionStorage.inputCols);
+        generateEmptyGrid(sessionStorage.inputRows, sessionStorage.inputCols);    
     }
 
-    /* Remember last used values for input boxes */
-    $('#nonogram-gen-rows').val(sessionStorage.inputRows);
-    $('#nonogram-gen-cols').val(sessionStorage.inputCols);
-    generateEmptyGrid(sessionStorage.inputRows, sessionStorage.inputCols);
 }
 
 
@@ -159,7 +185,7 @@ function generateEmptyGrid(rows, cols) {
         /* Add Data Cell at Beginning */
         curRow.append('<td class="cell-data-row" id="data-cell-row-' + i + '"></td>');
         for (var v = 0; v < cols; v++) {
-            /* Append Cols to the Row we just created */
+            /* Append Cells to the Row we just created */
             curRow.append('<td id="row-' + i + 'col-' + v + '" class="cell cell-blank"></td>');
         }
         /* Close Row */
@@ -167,6 +193,54 @@ function generateEmptyGrid(rows, cols) {
     }
 }
 
+/**
+ * With data being collected from the database, append the given grid layout to the website.
+ * NOTE: data structure for ngData: 
+ *      int id, int userID, string nonogramData, int rows, int cols, string createdAt, string updatedAt
+ * 
+ * @param {array} ngData Nonogram data retrieved from the database. 
+ */
+function generateGivenGrid(ngData) {
+    /* Set Grid*/
+    grid = $('#tile-grid-cells'); 
+    /* This keeps track of the index we are on in our nonogramData */
+    curCharIndex = 0;
+    /* Clear Grid of all TD and TR*/
+    grid.empty();
+
+    /* Establish row of col data cells */
+    grid.append('<tr id="column-data-cells>');
+    /* Add empty table data to align rows/cols properly*/
+    grid.append('<td></td>');
+    /* TODO, fix redundant code, some of this code is in generateEmptyGrid, at this point just make a function */
+    for (var i = 0; i < ngData.cols; i++) {
+        grid.append('<td id="data-cell-col-' + i + '" class="cell-data-col"></td>');
+    }
+    grid.append ('<tr>');
+
+    /* Create data cell rows and some of the rows of the grid themselves */
+    for (var i = 0; i < ngData.rows; i++) {
+        /* Create Row with ID */
+        grid.append('<tr id="row-' + i + '">');
+        /* Init Cur Row to Append to */
+        curRow = $('#row-' + i);
+        /* Add Data Cell at Beginning */
+        curRow.append('<td class="cell-data-row" id="data-cell-row-' + i + '"></td>');
+        for (var v = 0; v < ngData.cols; v++) {
+            /* Append Cells to the Row we just created */
+            /* This is where we use our NG data to decide whether or not it's filled/not filled  */ 
+            if (ngData.nonogramData[curCharIndex] == '0') {
+                curRow.append('<td id="row-' + i + 'col-' + v + '" class="cell cell-filled"></td>');
+            } else {
+                curRow.append('<td id="row-' + i + 'col-' + v + '" class="cell cell-blank"></td>');
+            }
+            curCharIndex += 1;
+        }
+        /* Close Row */
+        grid.append('</tr>');
+    }
+    updateDataCells();
+}
 /**
  * For creating a Nonogram, update *ALL* data cells with their respective values.    
  */

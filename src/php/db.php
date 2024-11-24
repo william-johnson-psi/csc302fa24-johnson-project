@@ -135,6 +135,8 @@ function getUserByUsername($username) {
  * @param int $rows Amount of rows in nonogram 
  * @param int $cols Amount of cols in nonogram 
  * @param string $ngData Nonogram Data formatted like this. '0' = filled, '-'= blank.  : 00--0-0-0---000----000-0-0-00--
+ * 
+ * @return array-key ['success' => true] or ['success' => false, 'error' => 'message']
  */
 function saveNonogram($userId, $rows, $cols, $ngData) {
     global $dbh; 
@@ -151,6 +153,57 @@ function saveNonogram($userId, $rows, $cols, $ngData) {
         return createError('Error saving nonogram');
     }
     return ['success' => true];
+}
+
+/**
+ * Grab a list of nonograms created by the requesting user, each must match the $_SESSION userId
+ * 
+ * 
+ */
+
+/**
+ * Grab the Nonogram by it's id, also make sure that the user ID of the Nonogram matches the one stored in $_SESSION
+ * 
+ * @param int $ngId The ID of the Nonogram we want to grab. 
+ * 
+ * @return array-key Associative Array of Nonogram Data, with success boolean. OR error message 
+ */
+function getNonogramList() {
+    global $dbh; 
+    try {
+        $statement = $dbh->prepare('select * from Nonograms where userId = :userId');
+        $statement->execute([
+            ':userId' => $_SESSION['userId']
+        ]); 
+        $nonogramList = $statement->fetchAll(PDO::FETCH_ASSOC); 
+    } catch (PDOException $e) {
+        return createError("Error grabbing list of Nonograms");
+    }
+    $nonogramList['length'] = count($nonogramList);
+    $nonogramList['success'] = true;
+    return $nonogramList;
+
+}
+function getNonogram($ngId) {
+    global $dbh; 
+    try {
+        $statement = $dbh->prepare('select * from Nonograms where id = :ngId');
+        $statement->execute([
+            ':ngId' => $ngId
+        ]);
+        $nonogramData = $statement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        return createError("Error retrieving nonogram");
+    }
+
+    /* Check if userId matches that of the Nonogram we grabbed, else unauthorized */
+    if ($nonogramData['userId'] != $_SESSION['userId']) {
+        http_response_code(401);
+        return createError("Unauthorized to open requested nonogram");
+    }
+
+    $nonogramData["success"] = true; 
+    return $nonogramData;
 }
 
 /* Create our SQL Tables */
