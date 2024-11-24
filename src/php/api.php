@@ -34,6 +34,10 @@ if (array_key_exists('action', $_POST)) {
         echo json_encode(signedInOrDie());
     } else if ($action == 'save-nonogram') {
         echo json_encode(saveNonogram($_SESSION['userId'], $_POST['rows'], $_POST['cols'], $_POST['ngData']));
+    } else if ($action == 'get-nonogram') {
+        echo json_encode(getNonogram($_POST['ngId']));
+    } else if ($action == 'get-nonogram-list') {
+        echo json_encode(getNonogramList());
     }
 }
 

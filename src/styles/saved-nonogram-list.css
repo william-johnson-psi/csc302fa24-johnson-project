@@ -1,0 +1,20 @@
+
+#table-title {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+#saved-nonograms-table {
+    border: 1.5px solid black;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#saved-nonograms-table td {
+    font-size: 1.3em;
+    border: 1.5px solid black;
+    padding: 0.6em;
+    min-width: 10em;
+    text-align: center;
+}
