@@ -268,6 +268,7 @@ function updateDataCells() {
 
 /**
  * Given a data-row-cell sequence, return a formatted string for the cell
+ * Input will typically look like this: [2, 1 3] 
  * 
  * 
  * @param {Array.<number>} sequence: Sequence of ints in an array, you can use getRowSequence for this parameter. 
@@ -276,6 +277,7 @@ function updateDataCells() {
  * @returns {string} Formatted string, could look like "5 4 9 7 20"
  */
 function buildRowSequenceString(sequence) {
+    /* The string to display on the data cell, we will build this as the fn runs */
     formattedString = "";
     for (var i = 0; i < sequence.length; i++) {
         if (i == (sequence.length-1)) {
@@ -290,6 +292,7 @@ function buildRowSequenceString(sequence) {
 
 /**
  * Given a data-row-cell sequence, return a formatted string for the cell
+ * Input will typically look like this: [2, 1 3]
  * 
  * 
  * @param {Array.<number>} sequence: Sequence of ints in an array, you can use getColSequence for this parameter. 
