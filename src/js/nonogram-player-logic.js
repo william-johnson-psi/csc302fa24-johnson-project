@@ -27,7 +27,7 @@ $(document).ready(function() {
                 nonogramRawData = data.nonogramData;
                 nonogramParsedData = parseNonogramData(nonogramRawData, nonogramRows, nonogramCols);
                 generateNonogram();
-                parseNonogramData();
+                populateDataCells(nonogramParsedData, nonogramRows, nonogramCols);
             }
             else {
                 console.log('Issue with retrieving Nonogram');
@@ -77,15 +77,129 @@ function generateNonogram() {
 }
 
 
-function populateDataCells() {
+function populateDataCells(grid, rows, cols) {
     /* TODO: Populate Data Cells*/
-    curRowDataCell = null; 
-    curColDataCell = null; 
-    
-    rowDataCellSequences = []; 
-    colDataCellSequences = [];
+    curDataCell = null; 
 
+    /* Populate row data cells */
+    for (var i = 0; i < rows; i++) {
+        curDataCell = $('#data-cell-row-'+ i);
+        curDataCell.text(buildRowSequenceString(getRowSequence(grid, cols, i)));
+    }
+
+    /* Populate col data cells */
+    for (var i = 0; i < cols; i++) {
+        curDataCell = $('#data-cell-col-' + i); 
+        curDataCell.text(buildColSequenceString(getColSequence(grid, rows, i)));
+    }
 }
+
+/**
+ *  Given the parsed grid, and the row index, get the set the Nonogram sequence in that row 
+ * 
+ * @param {Array<Array<string>>} grid Parsed Nonogram Data as a 2D Array 
+ * @param {int} cols Amount of columns in the Nonogram
+ * @param {int} row_index Which row we want to get the sequence for 
+ * 
+ * @returns {Array<int>} Array of Ints (i.e [3, 2, 6])
+ */
+function getRowSequence(grid, cols, row_index) {
+    sequence = []; 
+    curShadedCells = 0;
+    for (var i = 0; i < cols; i++) {
+        if (grid[row_index][i] == '0') {
+            curShadedCells += 1; 
+            /* If on last cell of row, push to sequence because we are the end */
+            if (i == cols-1) {
+                sequence.push(curShadedCells);
+            }
+        }
+        else if (curShadedCells != 0) {
+            sequence.push(curShadedCells);
+            curShadedCells = 0; 
+        }
+    }
+    return sequence;
+}
+
+
+/**
+ *  Given the parsed grid, and the col index, get the set the Nonogram sequence in that row 
+ * 
+ * @param {Array<Array<string>>} grid Parsed Nonogram Data as a 2D Array 
+ * @param {int} rows Amount of rows in the Nonogram
+ * @param {int} col_index Which row we want to get the sequence for 
+ * 
+ * @returns {Array<int>} Array of Ints (i.e [3, 2, 6])
+ */
+function getColSequence(grid, rows, col_index) {
+    sequence = []; 
+    curShadedCells = 0;
+    for (var i = 0; i < rows; i++) {
+        if (grid[i][col_index] == '0') {
+            curShadedCells += 1; 
+            /* If on last cell of row, push to sequence because we are the end */
+            if (i == rows-1) {
+                sequence.push(curShadedCells);
+            }
+        }
+        else if (curShadedCells != 0) {
+            sequence.push(curShadedCells);
+            curShadedCells = 0; 
+        }
+    }
+    return sequence;
+}
+
+
+/**
+ * Given a data-row-cell sequence, return a formatted string for the cell
+ * Input will typically look like this: [2, 1 3] 
+ * 
+ * 
+ * @param {Array.<number>} sequence: Sequence of ints in an array, you can use getRowSequence for this parameter. 
+ * 
+ * 
+ * @returns {string} Formatted string, could look like "5 4 9 7 20"
+ */
+function buildRowSequenceString(sequence) {
+    /* The string to display on the data cell, we will build this as the fn runs */
+    formattedString = "";
+    for (var i = 0; i < sequence.length; i++) {
+        if (i == (sequence.length-1)) {
+            formattedString += sequence[i];
+        }
+        else {
+            formattedString += sequence[i] + " ";
+        }
+    }
+    return formattedString;
+}
+
+/**
+ * Given a data-row-cell sequence, return a formatted string for the cell
+ * Input will typically look like this: [2, 1 3]
+ * 
+ * 
+ * @param {Array.<number>} sequence: Sequence of ints in an array, you can use getColSequence for this parameter. 
+ * 
+ * 
+ * @returns {string} Formatted string, could look like "5\n4\n9\n7\n20"
+ */
+function buildColSequenceString(sequence) {
+    formattedString = "" 
+    for (var i = 0; i < sequence.length; i++) {
+        if (i == (sequence.length-1)) {
+            formattedString += sequence[i];
+        }
+        else {
+            formattedString += sequence[i] + '\n';
+        }
+    }
+    return formattedString;
+}
+
+
 
 /**
  * Parse Nonogram data into a 2D Array with '0' being filled, and '-' being blank.
@@ -109,7 +223,7 @@ function parseNonogramData(rawNonogramData, rows, cols) {
             curIndex += 1;
         }
     }
-    return rawNonogramData;
+    return nonogramData;
     /* nonogramParsedData is global, so nothing else needs to be done. */
 }
 
