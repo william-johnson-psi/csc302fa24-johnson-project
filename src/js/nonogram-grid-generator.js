@@ -247,21 +247,17 @@ function generateGivenGrid(ngData) {
 function updateDataCells() {
     rows = sessionStorage.inputRows;
     cols = sessionStorage.inputCols;
-    curRowDataCell = null; 
-    curColDataCell = null; 
-    formattedText = "";
+    curDataCell = null; 
     /* Let's start with updating row data cells */ 
     for (var i = 0; i < rows; i++) {        
-        curRowDataCell = $('#data-cell-row-' + i);
-        formattedText = buildRowSequenceString(getRowSequence(i));
-        curRowDataCell.text(formattedText);
+        curDataCell = $('#data-cell-row-' + i);
+        curDataCell.text(buildRowSequenceString(getRowSequence(i)));
     }
 
     /* Now update col cells */ 
     for (var i = 0; i < cols; i++) {
-        curColDataCell = $('#data-cell-col-' + i);
-        formattedText = buildColSequenceString(getColSequence(i));
-        curColDataCell.text(formattedText); 
+        curDataCell = $('#data-cell-col-' + i);
+        curDataCell.text(buildColSequenceString(getColSequence(i))); 
     }
 }
 
@@ -336,9 +332,8 @@ function getRowSequence(row) {
     /* Go through the single row */
     for (var i = 0; i < cols; i++) {
         curCell = $('#row-' + row + 'col-' + i);
-        isShaded = curCell.hasClass("cell-filled");
         /* If shaded, add on to the currently tracked adjacent cells total*/
-        if (isShaded) {
+        if (curCell.hasClass("cell-filled")) {
             curShadedCells += 1; 
             /* Check to see if we are on the last cell of the row, if so push to sequence because we are done.*/
             if (i == cols-1) {
