@@ -26,6 +26,53 @@
     margin-top: 2em;
 }
 
+/* Modes for clicking cells */ 
+
+#mode-container h3 {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: underline;
+}
+
+#mode-buttons-container {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#mode-buttons-container input {
+    border-radius: 8px;
+    margin-left: 0.7em;
+    margin-right: 0.7em;
+    margin-top: 0.7em;
+    height: 2em;
+    width: 5em;
+    font-family: monospace;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.mode-btn-selected {
+    background-color: green;
+    box-shadow: 1px 1px 2px 1px gray;
+}
+
+.mode-btn-selected:hover {
+    background-color: #1cd400;
+    transition: 200ms;
+}
+
+.mode-btn-unselected {
+    background-color: gray;
+}
+
+.mode-btn-unselected:hover {
+    background-color: #374f33;
+    transition: 200ms;
+}
+
 /* Main Grid */
 #tile-grid-cells {
     border-collapse:collapse;
@@ -40,6 +87,7 @@
     border: 1.5px solid black;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .cell-blank {

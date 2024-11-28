@@ -10,7 +10,9 @@
     <script src="../js/nonogram-player-logic.js"></script>
     <link rel="stylesheet" href="../styles/nonogram.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/nonogram-player.css">
 </head>
+
 <body>
     <header id="universal-header">
         <h1>Nonogrammer</h1>
@@ -24,6 +26,16 @@
             <li><a href="saved-nonograms.html">Saved Nonograms</a></li>
         </ul>
     </nav>
+
+    <div id="mode-container">
+        <h3>Click Mode</h3>
+        <div id="mode-buttons-container">
+            <input type="button" value="Fill" class="mode-btn-selected" id="btn-fill">
+            <input type="button" value="Cross" class="mode-btn-unselected" id="btn-cross">
+            <input type="button" value="Erase" class="mode-btn-unselected" id="btn-erase">
+        </div>
+    </div>
+
 
     <div>        
         <table id="tile-grid-cells">

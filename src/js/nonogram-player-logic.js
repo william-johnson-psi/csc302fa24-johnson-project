@@ -5,6 +5,8 @@ nonogramParsedData = [];
 nonogramRows = null;
 nonogramCols = null; 
 
+/* for the curMode, 0=fill, 1=cross, 2=erase */
+curMode = 0;
 $(document).ready(function() {
     urlGetParams = new URLSearchParams(window.location.search);
     /* Grab the nonogram id in url params */
@@ -26,7 +28,9 @@ $(document).ready(function() {
                 nonogramName = data.name;
                 nonogramRawData = data.nonogramData;
                 nonogramParsedData = parseNonogramData(nonogramRawData, nonogramRows, nonogramCols);
-                generateNonogram();
+                /* create ng grid */
+                generateNonogram(nonogramRows, nonogramCols);
+                /* populate data cells of generated ng */
                 populateDataCells(nonogramParsedData, nonogramRows, nonogramCols);
             }
             else {
@@ -39,14 +43,20 @@ $(document).ready(function() {
         }
     })
 
-    /* Begin creating empty table, and populate data cells */ 
+    /* Click Listeners for mode buttons */
+    $(document).on('click', '#btn-fill', () => changeMode(0, '#btn-fill', '#btn-cross', '#btn-erase'));
+    $(document).on('click', '#btn-cross', () => changeMode(1, '#btn-cross', '#btn-fill', '#btn-erase'));
+    $(document).on('click', '#btn-erase', () => changeMode(2, '#btn-erase', '#btn-fill', '#btn-cross'));
+
+    /* Click Listener for each cell*/
+    $(document).on('click', '.cell', changeCell);
 })
 
 /**
  * Generate a nonogram grid with the rows and cols grabbed from the database. 
  * Keep the data cells empty.
  */
-function generateNonogram() {
+function generateNonogram(rows, cols) {
     /* Set Grid */
     grid = $('#tile-grid-cells');
 
@@ -54,20 +64,20 @@ function generateNonogram() {
     grid.append('<tr id="column-data-cells">')
     /* Adding an empty table data to align rows/cols properly, because in HTML the row data cells can mess up the alignment */
     grid.append('<td></td>');
-    for (var i = 0; i < nonogramCols; i++) {
+    for (var i = 0; i < cols; i++) {
         grid.append('<td id="data-cell-col-' + i + '" class="cell-data-col"></td>');
     }
     grid.append('</tr>');
     
     /* Here, we create the data-cell-rows as well as the rows of the grid themselves.*/
-    for (var i = 0; i < nonogramRows; i++) {
+    for (var i = 0; i < rows; i++) {
         /* Create Row with ID */
         grid.append('<tr id="row-' + i + '">');
         /* Init Cur Row to Append to */
         curRow = $('#row-' + i);
         /* Add Data Cell at Beginning */
         curRow.append('<td class="cell-data-row" id="data-cell-row-' + i + '"></td>');
-        for (var v = 0; v < nonogramCols; v++) {
+        for (var v = 0; v < cols; v++) {
             /* Append Cells to the Row we just created */
             curRow.append('<td id="row-' + i + 'col-' + v + '" class="cell cell-blank"></td>');
         }
@@ -228,5 +238,51 @@ function parseNonogramData(rawNonogramData, rows, cols) {
 }
 
 
+/**
+ * Change the cell click mode to that of fill, cross, or erase. 
+ * Automatically modify CSS classes of mode buttons and update mode value
+ * @param {String} mode A string that equals "fill" or "cross", or "erase". Use this to set the active mode 
+ * @param {*} on_btn_id ID of the button to make appear as ON
+ * @param {*} off_btn_id_one ID of the button to make appear as OFF 
+ * @param {*} off_btn_id_two ID of the second button to make appear as OFF 
+ */
+function changeMode(mode, on_btn_id, off_btn_id_one,off_btn_id_two) {
+    curMode = mode; 
+
+    $(on_btn_id).removeClass("mode-btn-unselected"); 
+    $(on_btn_id).addClass("mode-btn-selected");
+
+    $(off_btn_id_one).removeClass("mode-btn-selected");
+    $(off_btn_id_one).addClass("mode-btn-unselected");
+
+    $(off_btn_id_two).removeClass("mode-btn-selected");
+    $(off_btn_id_two).addClass("mode-btn-unselected");
+}
 
 
+/**
+ * Using the global curMode, 
+ */
+function changeCell() {
+    curCell = $(this);
+    switch(curMode) {
+        case 0:
+            curCell.removeClass('cell-blank');
+            curCell.removeClass('cell-crossed');
+            curCell.addClass('cell-filled');
+            curCell.text('');
+            return;
+        case 1:
+            curCell.removeClass('cell-blank');
+            curCell.removeClass('cell-filled');
+            curCell.addClass('cell-crossed');
+            curCell.text('X');
+            return;
+        case 2:
+            curCell.removeClass('cell-filled');
+            curCell.removeClass('cell-crossed');
+            curCell.addClass('cell-blank');
+            curCell.text('');
+            return;
+    }
+}
