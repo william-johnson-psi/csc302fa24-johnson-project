@@ -4,6 +4,7 @@ nonogramRawData = null;
 nonogramParsedData = [];
 nonogramRows = null;
 nonogramCols = null; 
+attempts = 0;
 
 /* for the curMode, 0=fill, 1=cross, 2=erase */
 curMode = 0;
@@ -50,6 +51,9 @@ $(document).ready(function() {
 
     /* Click Listener for each cell*/
     $(document).on('click', '.cell', changeCell);
+
+    /* Submission Checker */
+    $(document).on('click', '#btn-check-solution', checkSolution);
 })
 
 /**
@@ -284,5 +288,47 @@ function changeCell() {
             curCell.addClass('cell-blank');
             curCell.text('');
             return;
+    }
+}
+
+
+/**
+ * Checks the solution of the active state of the Nonogram. W
+ */
+function checkSolution() {
+    /* Add an attempt */
+    attempts += 1;
+    mistakes = 0;
+    isIncorrect = false; 
+    isCurCellFilled = false;
+    for (var r = 0; r < nonogramRows; r++) {
+        for (var c = 0; c < nonogramCols; c++) {
+            isCurCellFilled = $('#row-' + r + 'col-' + c).hasClass('cell-filled');
+            /* First, let's see if user filled an incorrect cell */
+            if (isCurCellFilled && (nonogramParsedData[r][c] == '-')) {
+                mistakes += 1;
+            }
+            /* Also see if active state empty cell doesn't match state filled cell, 
+            don't count this as a mistake, but understand this is now incorrect */
+            else if (!isCurCellFilled && (nonogramParsedData[r][c] == '0')) {
+                isIncorrect = true; 
+            }
+        }
+    }
+
+    if ((mistakes == 0) && !isIncorrect) {
+        $('#win-state-text').removeClass('incorrect');
+        $('#win-state-text').addClass('correct');
+        $('#win-state-text').text('Solution Correct!');
+        $('#nonogram-solution-info').removeClass('incorrect');
+        $('#nonogram-solution-info').text('Nonogram Name: ' + nonogramName);
+    }
+    else {
+        $('#win-state-text').removeClass('correct');
+        $('#win-state-text').addClass('incorrect');
+        $('#win-state-text').text('Incorrect!');
+
+        $('#nonogram-solution-info').addClass('incorrect');
+        $('#nonogram-solution-info').text('Attempts: ' + attempts + '   Mistakes Found: ' + mistakes);
     }
 }

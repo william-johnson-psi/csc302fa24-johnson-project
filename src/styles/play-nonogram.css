@@ -1,0 +1,56 @@
+#solution-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Correct/Incorrect Texts */
+#solution-container h3 {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: monospace;
+    font-size: xx-large;
+}
+
+#solution-container h4 {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: monospace;
+    font-size: x-large;
+}
+
+.correct {
+    color: #13c219;
+}
+
+.incorrect {
+    color: #d61313
+}
+
+
+#btn-check-solution {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.75em;
+    border-radius: 8px;
+    height: 3em;
+    min-width: 10em;
+    box-shadow: 1px 1px 1px 1px gray;
+    font-family:monospace;
+    font-weight: bold;
+    color: white;
+    background-color:green;
+    cursor: pointer;
+}
+
+#btn-check-solution:hover {
+    background-color: #00ff22;
+    color: black;
+    transition: 200ms;
+}
+
