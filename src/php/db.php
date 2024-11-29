@@ -208,6 +208,34 @@ function getNonogram($ngId) {
     return $nonogramData;
 }
 
+function deleteNonogram($ngId) {
+    global $dbh; 
+    /* I first want to get the requested nonogram for deletion, 
+    and see if it's creator's userId, matches the logged in userId */
+    $nonogramData = getNonogram($ngId);
+    /* See if retrieving nonogram was successful */
+    if (!$nonogramData["success"]) {
+        return createError("Error retrieving Nonogram");
+    }
+    /* Ensure retrieved ngData userId, matches logged in user's Id */
+    if ($nonogramData['userId'] != $_SESSION['userId']) {
+        http_response_code(401); 
+        return createError("Unauthorized to delete requested nonogram");
+    }
+
+    /* We made it this far, so proceed with deletion */
+    try {
+        $statement = $dbh->prepare('delete from Nonograms where id = :ngId');
+        $statement->execute([
+            'ngId' => $ngId
+        ]);
+    } catch (PDOException $e) {
+        return createError('Error with deleting Nonogram');
+    }
+
+    return ['success' => true];
+}
+
 /* Create our SQL Tables */
 createTables();
 ?>

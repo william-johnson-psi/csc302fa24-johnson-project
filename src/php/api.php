@@ -36,6 +36,8 @@ if (array_key_exists('action', $_POST)) {
         echo json_encode(saveNonogram($_SESSION['userId'], $_POST['ngName'] ,$_POST['rows'], $_POST['cols'], $_POST['ngData']));
     } else if ($action == 'get-nonogram') {
         echo json_encode(getNonogram($_POST['ngId']));
+    } else if ($action == 'delete-nonogram') {
+        echo json_encode(deleteNonogram($_POST['ngId']));
     } else if ($action == 'get-nonogram-list') {
         echo json_encode(getNonogramList());
     }
