@@ -90,6 +90,10 @@
     cursor: pointer;
 }
 
+.cell:hover {
+    border: 3px solid black;
+}
+
 .cell-blank {
     background-color: white;
 }
