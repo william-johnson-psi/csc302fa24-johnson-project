@@ -22,7 +22,7 @@ Most of the logic for updating nonogram data cells, generating grids, and playin
 - [x] Server-Side Account Management DIF:3 
 - [x] Server-Side Nonogram Storage DIF: 3 
 - [x] Savable & Edittable Nonograms DIF: 3
-- [ ] Playable Nonograms DIF: 3 
+- [x] Playable Nonograms DIF: 3 
 - [ ] Printable Nonograms DIF: 1 
 - [ ] Stylized User Interface DIF: 1 
 - [ ] Quality of Life DIF: 2 
@@ -32,7 +32,8 @@ Most of the logic for updating nonogram data cells, generating grids, and playin
 ## Live URL 
 https://digdug.cs.endicott.edu/~wjohnson/nonogrammer/src/index.html
 
-## File Structure
+## File Structure  
+  
 C:.  
 │   diagram.pdf  
 │   README.md  
@@ -45,11 +46,13 @@ C:.
     │       image-processor.js  
     │       login-logic.js  
     │       nonogram-grid-generator.js  
+    │       nonogram-player-logic.js  
     │       saved-nonograms-logic.js  
     │       universal-signedin-checker.js  
-    │  
+    │   
     ├───pages  
     │       manual-creator.html  
+    │       play-nonogram.html  
     │       saved-nonograms.html  
     │  
     ├───php  
@@ -60,8 +63,9 @@ C:.
     └───styles  
             main.css  
             nonogram.css  
+            play-nonogram.css  
             saved-nonogram-list.css  
-
+  
 ## Current API Actions  
 
 Action: signup
@@ -99,6 +103,10 @@ Method: POST
 Parameters: nonogramId
 Response: Nonogram SQL Object, sucess state 
 
+Action: delete-nonogram
+Method: POST
+Parameters: nonogramId
+Response: success state 
 
 Action: get-nonogram-list
 Method: POST
