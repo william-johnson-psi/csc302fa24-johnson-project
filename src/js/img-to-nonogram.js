@@ -1,15 +1,26 @@
 var nonogramData = null;
 var rows = 0;
 var cols = 0;
+curMode = 0; /* 0 = fill, 1 = cross, 2 = erase*/
 $(document).ready(function() {
 
-
+    /* Sync Row/Col values when user changes input */
     $(document).on('input', '#nonogram-gen-rows', updateColInput);
     $(document).on('input', '#nonogram-gen-cols', updateRowInput);
 
+    /* Listener for beginning generation from img -> nonogram */
     $(document).on('click', '#convert-img-ng-btn', imageToNonogram)
 
+    /* Changes strength of grayscale->nonogram as the user slides. */
     $(document).on('input', '#strength-slider', updateStrength);
+
+
+    /* Click Listeners for mode buttons */
+    $(document).on('click', '#btn-fill', () => changeMode(0, '#btn-fill', '#btn-cross', '#btn-erase'));
+    $(document).on('click', '#btn-cross', () => changeMode(1, '#btn-cross', '#btn-fill', '#btn-erase'));
+    $(document).on('click', '#btn-erase', () => changeMode(2, '#btn-erase', '#btn-fill', '#btn-cross'));
+    /* For Nonogram Creation, Handle Filling, X'ing, or Erasing Cells */ 
+    $(document).on('click', '.cell', changeCell);
 })
 
 function buildNonogram(nonogramData) {
@@ -59,6 +70,9 @@ async function imageToNonogram() {
     }
     nonogramData = convertGrayscaleToNonogram(compressedGrayscaleData, 0);
     buildNonogram(nonogramData);
+    $('#strength-container').removeClass('hidden');
+    $('#nonogram-submit-container').removeClass('hidden');
+    $('#mode-container').removeClass('hidden');
 }
 
 function updateStrength() {
@@ -68,6 +82,54 @@ function updateStrength() {
     nonogramData = convertGrayscaleToNonogram(compressedGrayscaleData, strength);
     buildNonogram(nonogramData);
 }
+
+
+/**
+ * Modify Cell and change to either Filled, X'd, or Blank, in this respecive order.
+ * Also, update all data cell
+ * 
+ */
+function changeCell() {
+    curCell = $(this);
+    switch(curMode) {
+        case 0:
+            curCell.removeClass('cell-blank');
+            curCell.removeClass('cell-crossed');
+            curCell.addClass('cell-filled');
+            curCell.text('');
+            return;
+        case 1:
+            curCell.removeClass('cell-blank');
+            curCell.removeClass('cell-filled');
+            curCell.addClass('cell-crossed');
+            curCell.text('X');
+            return;
+        case 2:
+            curCell.removeClass('cell-filled');
+            curCell.removeClass('cell-crossed');
+            curCell.addClass('cell-blank');
+            curCell.text('');
+            return;
+    }
+    updateDataCells();
+}
+
+
+
+function changeMode(mode, on_btn_id, off_btn_id_one,off_btn_id_two) {
+    curMode = mode; 
+
+    $(on_btn_id).removeClass("mode-btn-unselected"); 
+    $(on_btn_id).addClass("mode-btn-selected");
+
+    $(off_btn_id_one).removeClass("mode-btn-selected");
+    $(off_btn_id_one).addClass("mode-btn-unselected");
+
+    $(off_btn_id_two).removeClass("mode-btn-selected");
+    $(off_btn_id_two).addClass("mode-btn-unselected");
+}
+
+
 /**
  * For creating a Nonogram, update *ALL* data cells with their respective values.    
  */

@@ -1,6 +1,6 @@
 minRowCols = 5;
 maxRowCols = 50;
-
+curMode = 0; /* 0 = fill, 1 = cross, 2 = erase*/
 $(document).ready(function() {
     /* Handle changes in Row Col Input, we want Row and Col inputs to ALWAYS be equal to each-other. */
     $(document).on('input', '#nonogram-gen-rows', updateColInput);
@@ -10,6 +10,10 @@ $(document).ready(function() {
     $(document).on('click', '#gen-nonogram-btn', updateInputRowsCols);
     /* Handle Saving Raw Nonogram Data */ 
     $(document).on('click', '#save-nonogram-btn', saveNonogram);
+    /* Click Listeners for mode buttons */
+    $(document).on('click', '#btn-fill', () => changeMode(0, '#btn-fill', '#btn-cross', '#btn-erase'));
+    $(document).on('click', '#btn-cross', () => changeMode(1, '#btn-cross', '#btn-fill', '#btn-erase'));
+    $(document).on('click', '#btn-erase', () => changeMode(2, '#btn-erase', '#btn-fill', '#btn-cross'));
     /* For Nonogram Creation, Handle Filling, X'ing, or Erasing Cells */ 
     $(document).on('click', '.cell', changeCell);
     /* Generate Grid */
@@ -118,25 +122,43 @@ function checkMinMaxViolations() {
  */
 function changeCell() {
     curCell = $(this);
-    if (curCell.hasClass("cell-blank")) {
-        curCell.removeClass("cell-blank");
-        curCell.addClass("cell-filled");
+    switch(curMode) {
+        case 0:
+            curCell.removeClass('cell-blank');
+            curCell.removeClass('cell-crossed');
+            curCell.addClass('cell-filled');
+            curCell.text('');
+            return;
+        case 1:
+            curCell.removeClass('cell-blank');
+            curCell.removeClass('cell-filled');
+            curCell.addClass('cell-crossed');
+            curCell.text('X');
+            return;
+        case 2:
+            curCell.removeClass('cell-filled');
+            curCell.removeClass('cell-crossed');
+            curCell.addClass('cell-blank');
+            curCell.text('');
+            return;
     }
-
-    else if (curCell.hasClass("cell-filled")) {
-        curCell.removeClass("cell-filled");
-        curCell.addClass("cell-crossed");
-        curCell.text('X');
-    }
-
-    else if (curCell.hasClass("cell-crossed")) {
-        curCell.removeClass("cell-crossed");
-        curCell.addClass("cell-blank");
-        curCell.text('');
-    }
-
     updateDataCells();
 }
+
+
+function changeMode(mode, on_btn_id, off_btn_id_one,off_btn_id_two) {
+    curMode = mode; 
+
+    $(on_btn_id).removeClass("mode-btn-unselected"); 
+    $(on_btn_id).addClass("mode-btn-selected");
+
+    $(off_btn_id_one).removeClass("mode-btn-selected");
+    $(off_btn_id_one).addClass("mode-btn-unselected");
+
+    $(off_btn_id_two).removeClass("mode-btn-selected");
+    $(off_btn_id_two).addClass("mode-btn-unselected");
+}
+
 
 /**
  * With Row and Col Inputs #nonogram-gen-rows and #nonogram-gen-cols, append a grid layout to website
