@@ -18,10 +18,12 @@ $(document).ready(function() {
     /* data error */
     function() {
         $('#profile-menu').text('Logged Out');
+        homeIfLoggedOut(window.location.pathname);
     },
     /* error */
     function() {
         $('#profile-menu').text('Logged Out');
+        homeIfLoggedOut(window.location.pathname);
     }) 
 
     /* Click Listener for Signing Out */
@@ -47,3 +49,10 @@ $(document).ready(function() {
         })
     })
 })
+
+
+function homeIfLoggedOut(pathname) {
+    if (pathname != '/index.html') {
+        window.location.href = '../index.html';
+    }
+}
