@@ -21,12 +21,20 @@
 #universal-header #profile-menu {
     position: relative;
     margin-left: auto; /* Move menu to right side by adding some left margin */
-    right: 15%;
+    right: 6%;
     transform: translateX(50%);
     font-size: x-large;
 }
 
+#user-info {
+    margin-left: auto;
+    margin-right: 5%;
+    display: flex;
+    gap: 5em;
+}
 
+#btn-signout {
+}
 
 #universal-nav-bar {
     margin: 1.5em;

@@ -42,13 +42,11 @@ function toggleUserSession(data) {
     if (data.success) {
         $('#signin-container').addClass('hidden');
         $('#signup-container').addClass('hidden');
-        $('#signout-container').removeClass('hidden');
         $('#welcome-container').append('<h2>Welcome ' + data.username + ' (' + data.userId + ') ! </h2>');
     }
     else {
         $('signin-container').removeClass('hidden');
         $('signin-container').removeClass('hidden');
-        $('#signout-container').removeClass('hidden');
         $('#welcome-container').empty();
     }
 }

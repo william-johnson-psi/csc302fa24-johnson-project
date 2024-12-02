@@ -13,7 +13,10 @@
 <body>
     <header id="universal-header">
         <h1>Nonogrammer</h1>
-        <p id="profile-menu"></p>
+        <div id="user-info">
+            <p id="profile-menu"></p>
+            <input type="submit" id="btn-signout" value="Sign Out" class="hidden">
+        </div>
     </header>
 
     <nav id="universal-nav-bar">
@@ -47,13 +50,6 @@
                 <input type="submit" value="Sign Up">
             </form>
         </div>
-        <div id="signout-container" class="hidden">
-            <form method="post">
-                <input type="hidden" name="action" value="signout"> 
-                <input type="submit" value="Sign Out">
-            </form>
-        </div>
-
     </div>
 
     <footer>
