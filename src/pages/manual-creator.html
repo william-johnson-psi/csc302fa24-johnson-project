@@ -21,9 +21,12 @@
         <ul>
             <li><a href="../index.html">Home</a></li>
             <li><a href="manual-creator.html">Manual Creator</a></li>
+            <li><a href="img-to-nonogram.html">Image to Nonogram</a></li>
             <li><a href="saved-nonograms.html">Saved Nonograms</a></li>
         </ul>
     </nav>
+
+
     <div id="nonogram-gen-inputs-container">
         <h3>Choose the size of your nonogram.</h3>
         <form action="" method="GET">
@@ -32,6 +35,17 @@
             <input id="gen-nonogram-btn" type="submit" value="Generate Grid">
         </form>
     </div>
+
+    <div id="mode-container">
+        <h3>Click Mode</h3>
+        <div id="mode-buttons-container">
+            <input type="button" value="Fill" class="mode-btn-selected" id="btn-fill">
+            <input type="button" value="Cross" class="mode-btn-unselected" id="btn-cross">
+            <input type="button" value="Erase" class="mode-btn-unselected" id="btn-erase">
+        </div>
+    </div>
+
+
 
     <div>        
         <table id="tile-grid-cells">

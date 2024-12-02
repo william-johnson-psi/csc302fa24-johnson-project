@@ -22,6 +22,7 @@
         <ul>
             <li><a href="../index.html">Home</a></li>
             <li><a href="manual-creator.html">Manual Creator</a></li>
+            <li><a href="img-to-nonogram.html">Image to Nonogram</a></li>
             <li><a href="saved-nonograms.html">Saved Nonograms</a></li>
         </ul>
     </nav>
@@ -37,20 +38,30 @@
         <input id="convert-img-ng-btn" type="submit" value="Generate Grid">
     </div>
 
+
     <!-- We can use the canvas for image manipulation -->
     <canvas id="canvas" style="display:none;"></canvas>
+
+    <div id="mode-container" class="hidden">
+        <h3>Click Mode</h3>
+        <div id="mode-buttons-container">
+            <input type="button" value="Fill" class="mode-btn-selected" id="btn-fill">
+            <input type="button" value="Cross" class="mode-btn-unselected" id="btn-cross">
+            <input type="button" value="Erase" class="mode-btn-unselected" id="btn-erase">
+        </div>
+    </div>
 
     <div>        
         <table id="tile-grid-cells">
         </table>
     </div>
 
-    <div id="strength-container">
+    <div id="strength-container" class="hidden">
         <p id="strength-display">Strength: 0</p>
         <input type="range" id="strength-slider" min="-255" max="255" value="0">
     </div>
 
-    <div id="nonogram-submit-container">
+    <div id="nonogram-submit-container" class="hidden">
         <input id="name-nonogram-btn" class="center" type="text" value="Enter Nonogram Name">
         <a href="saved-nonograms.html"><input id ="save-nonogram-btn" class="center" type="submit" value="Save Nonogram"></a>
     </div>
