@@ -36,6 +36,9 @@
 #btn-signout {
 }
 
+
+/* NAV BAR */
+
 #universal-nav-bar {
     margin: 1.5em;
 }
@@ -44,7 +47,35 @@
     display: flex;
     justify-content: space-around;
     list-style-type: none;
+    border: 2px solid black;
+    background-color:#0036a1;
 }
+
+#universal-nav-bar ul li {
+    flex: 1;
+}
+
+#universal-nav-bar ul li a {
+    text-align: center;
+    color: white;
+    background-color: #0036a1;
+    text-decoration: none;
+    display: block; 
+    width: 100%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em; 
+    font-size: 30px; 
+    font-family:monospace;
+}
+
+#universal-nav-bar ul li a:hover{
+    color: #00fffb;
+    font-weight: bold;
+    background-color: #3076ff;
+    transition: all 100ms;
+    border-radius: 2vh;
+}
+
 
 .hidden {
     display: none;
