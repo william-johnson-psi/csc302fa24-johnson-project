@@ -128,21 +128,23 @@ function changeCell() {
             curCell.removeClass('cell-crossed');
             curCell.addClass('cell-filled');
             curCell.text('');
+            updateDataCells();
             return;
         case 1:
             curCell.removeClass('cell-blank');
             curCell.removeClass('cell-filled');
             curCell.addClass('cell-crossed');
             curCell.text('X');
+            updateDataCells();
             return;
         case 2:
             curCell.removeClass('cell-filled');
             curCell.removeClass('cell-crossed');
             curCell.addClass('cell-blank');
             curCell.text('');
+            updateDataCells();
             return;
     }
-    updateDataCells();
 }
 
 
