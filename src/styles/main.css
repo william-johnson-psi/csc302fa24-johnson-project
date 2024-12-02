@@ -4,17 +4,21 @@
 }
 
 
+
 #universal-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 1.5em;
 }
 #universal-header h1 {
     position: absolute;
     left: 50%; /* Move the element -->RIGHT  50% of the screen */
     transform: translateX(-50%); /* Move the element LEFT by HALF it's width */
     margin: 0;
+    font-size: 45px;
+    font-family: monospace;
 
 }
 
@@ -48,7 +52,7 @@
     justify-content: space-around;
     list-style-type: none;
     border: 2px solid black;
-    background-color:#0036a1;
+    background-color:#239aee;
 }
 
 #universal-nav-bar ul li {
@@ -58,7 +62,7 @@
 #universal-nav-bar ul li a {
     text-align: center;
     color: white;
-    background-color: #0036a1;
+    background-color: #239aee;
     text-decoration: none;
     display: block; 
     width: 100%;
@@ -71,12 +75,84 @@
 #universal-nav-bar ul li a:hover{
     color: #00fffb;
     font-weight: bold;
-    background-color: #3076ff;
+    background-color: #0054fd;
     transition: all 100ms;
     border-radius: 2vh;
 }
 
 
+/* Account Actions */
+#account-actions-container {
+    display: flex; 
+    flex-direction:row;
+    justify-content: space-evenly;
+}
+
+.account-action-section {
+    display: flex;
+    flex-direction: column;
+    border: 4px solid #0036a1;
+    border-radius: 2vh;
+    background: rgb(35,154,238);
+    background: linear-gradient(0deg, rgba(35,154,238,1) 0%, rgba(0,109,206,1) 49%, rgba(35,154,238,1) 100%);
+}
+
+.account-action-section h2 {
+    text-align: center;
+    color: white;
+    font-family: monospace;
+    font-size: 2.75em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.account-action-section form {
+    display: flex;
+    flex-direction: column;
+    margin: 9em;
+    margin-top: 1.5em;
+}
+
+
+.text-account-action {
+    color: white; 
+    font-family: monospace;
+    font-size: x-large;
+    font-weight: bold;
+}
+.input-account-action {
+    padding: 8px;
+    width: 25em;
+    margin-bottom: 1.3em;
+    border: 2px solid black;
+    border-radius: 1.5vh;
+}
+
+.btn-account-action {
+    background-color: #39b712;
+    color: white; 
+    padding: 10px 20px;
+    border: 2px solid darkgreen;
+    border-radius: 1.5vh;
+    font-size: 1.6em;
+    font-weight: bold;
+    font-family: monospace;
+    cursor: pointer;
+    width: 75%;
+    line-height: 0.5;
+    align-self: center;
+    margin: 0.75em;
+}
+
+.btn-account-action:hover {
+    background-color: #3cff00;
+    line-height: 0.6;
+    transform: translateX(-0.5%);
+    transition: 100ms;
+}
+
+
+/* Helper classes */
 .hidden {
     display: none;
 }
@@ -86,3 +162,4 @@
     margin-left: auto;
     margin-right: auto;
 }
+
