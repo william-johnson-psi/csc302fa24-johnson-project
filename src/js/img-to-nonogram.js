@@ -32,7 +32,7 @@ function buildNonogram(nonogramData) {
     /* Establish row of col data cells */
     grid.append('<tr id="column-data-cells>');
     /* Add empty table data to align rows/cols properly*/
-    grid.append('<td></td>');
+    grid.append('<td style="background-color:white;"></td>');
     /* TODO, fix redundant code, some of this code is in generateEmptyGrid, at this point just make a function */
     for (var i = 0; i < cols; i++) {
         grid.append('<td id="data-cell-col-' + i + '" class="cell-data-col"></td>');
