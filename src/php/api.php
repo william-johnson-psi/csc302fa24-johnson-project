@@ -24,7 +24,7 @@ if (array_key_exists('action', $_POST)) {
         // Salted Hash of Password using BCRYPT Algorithm 
         // Salted means adds random strings to the password, then encrypts with BCRYPT
         $saltedHash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        echo json_encode(signup($_POST['username'], $saltedHash));
+        echo json_encode(signup($_POST['username'], $saltedHash, $_POST['email']));
     } else if ($action == 'signin') {
         // Sign the user in, this FN is from db.php
         echo json_encode(signin($_POST));

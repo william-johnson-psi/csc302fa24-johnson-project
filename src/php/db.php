@@ -44,6 +44,7 @@ function createTables() {
         'id integer primary key autoincrement, '.
         'username text UNIQUE, '.
         'password text, '.
+        'email text, '.
         'createdAt datetime default(datetime()), '.
         'updatedAt dateTime default(dateTime()))');
     } catch(PDOException $e) {
@@ -77,17 +78,18 @@ function createTables() {
  *    {"success": false, "error": <error message>} 
  */
 
-function signup($username, $saltedPassword) {
+function signup($username, $saltedPassword, $email) {
     global $dbh; 
     $id = null; 
     try {
         /* Prepare statement for execution */
-        $statement = $dbh->prepare('insert into Users(username, password) '.
-            'values (:username, :password)');
+        $statement = $dbh->prepare('insert into Users(username, password, email) '.
+            'values (:username, :password, :email)');
         /* Start inserting username and password params */
         $statement->execute([
             ':username' => $username, 
-            ':password' => $saltedPassword
+            ':password' => $saltedPassword,
+            ':email' => $email
         ]);
         /* This grabs the last id that was inserted into DB */
         $id = $dbh->lastInsertId();
