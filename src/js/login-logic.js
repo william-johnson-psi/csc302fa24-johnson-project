@@ -25,9 +25,24 @@ $(document).ready(function() {
                 console.log(jqXHR);
             },
         })
+
         location.reload(true);
     })
 
+
+    $(document).on('click', '.link-create-account', () => {
+        console.log('hit');
+        if ($('#signup-container').hasClass('hidden')) {
+            $('#signin-container').addClass('hidden');
+            $('#signup-container').removeClass('hidden');
+        }
+        else {
+            $('#signup-container').addClass('hidden');
+            $('#signin-container').removeClass('hidden');
+        }
+    })
+
+    
     /*On Page Load/Reload, check if we are signed in and change necessary elements */ 
     getSignedInUserInfo(toggleUserSession, toggleUserSession, toggleUserSession);
 })

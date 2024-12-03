@@ -33,21 +33,28 @@
     <div id="account-actions-container">
         <div id="signin-container" class="account-action-section">
             <form method="get">
-                <h2>Sign In</h2>
+                <h2>Login</h2>
                 <input type="hidden" name="action" value="signin">
                 <p class="text-account-action">Username:</p><input type="text" name="username" placeholder="Enter your username" class="input-account-action">
                 <p class="text-account-action">Password:</p><input type="password" name="password" placeholder="Enter your password" class="input-account-action">
-                <input type="submit" value="Sign In" class="btn-account-action">
+                <div class="btns-account-actions">
+                    <p class="link-create-account">Create account</p>
+                    <input type="submit" value="Sign In" class="btn-account-action">
+                </div>
             </form>
         </div>
         <br>
-        <div id="signup-container" class="account-action-section">
+        <div id="signup-container" class="account-action-section hidden">
             <form method="post">
                 <h2>Sign Up</h2>
                 <input type="hidden" name="action" value="signup">
                 <p class="text-account-action">Username:</p><input type="text" name="username" placeholder="Create your username" class="input-account-action">
                 <p class="text-account-action">Password:</p><input type="password" name="password" placeholder="Create your password" class="input-account-action">
-                <input type="submit" value="Sign Up" class="btn-account-action">
+                <p class="text-account-action">Email</p><input type="text" name="email" placeholder="Enter your email" class="input-account-action">
+                <div class="btns-account-actions">
+                    <p class="link-create-account">Login account</p>
+                    <input type="submit" value="Sign Up" class="btn-account-action">
+                </div>
             </form>
         </div>
     </div>

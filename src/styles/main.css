@@ -85,9 +85,35 @@ html {
 
 /* Account Actions */
 #account-actions-container {
-    display: flex; 
+    /* display: flex; 
     flex-direction:row;
-    justify-content: space-evenly;
+    justify-content: space-evenly; */
+    margin-right: auto;
+    margin-left: auto;
+    max-width: fit-content;
+}
+
+.btns-account-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.link-create-account {
+    color: #39b712;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding:10px;
+    cursor:pointer;
+}
+
+.link-create-account:hover {
+    background-color:rgb(3, 63, 3);
+    color:#3cff00;
+    border-radius: 2vh;
+    transition: 100ms;
 }
 
 .account-action-section {
@@ -136,11 +162,13 @@ html {
     padding: 10px 20px;
     border: 2px solid darkgreen;
     border-radius: 1.5vh;
+
     font-size: 1.6em;
     font-weight: bold;
     font-family: monospace;
+    
     cursor: pointer;
-    width: 75%;
+    width: 6em;
     line-height: 0.5;
     align-self: center;
     margin: 0.75em;
