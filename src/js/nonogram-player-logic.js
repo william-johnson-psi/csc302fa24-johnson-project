@@ -1,3 +1,12 @@
+/*
+File: nonogram-player-logic.js
+Author: William Johnson
+Date: 2024-11-28
+
+Allows a Nonogram to be played by the user. Requires two URL params of 'ngSuccessfullyLoaded', and 'ngId'
+Request ngData from the server based off the passed id, then deserialize and build into a playable Nonogram. 
+*/
+
 nonogramId = undefined;
 nonogramName = null;
 nonogramRawData = null;

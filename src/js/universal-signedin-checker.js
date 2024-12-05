@@ -1,3 +1,17 @@
+/*
+File: universal-signedin-checker.js
+Author: William Johnson
+Date: N/A
+
+Loaded on all pages, see if the current user is signed in or signed out. 
+If they are signed in, change the correct elements and add a sign out button, otherwise 
+display as Logged Out and hide the signout button.
+*/
+
+
+
+
+
 /**
  * THIS FILE ASSUMES WE WILL HAVE THE FOLLOWING ON THE LOADED PAGE:
  * 

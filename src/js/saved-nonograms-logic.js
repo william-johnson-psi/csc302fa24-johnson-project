@@ -1,3 +1,12 @@
+/*
+File: saved-nonograms-logic.js
+Author: William Johnson
+Date: N/A
+
+Request and load all nonograms into the table. The server will verify which user is logged in by itsself. 
+Load the edit, play, and delete links too. 
+*/
+
 $(document).ready(function() {
     displayNonogramList();
 

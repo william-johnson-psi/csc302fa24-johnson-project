@@ -1,4 +1,10 @@
+/*
+File: saved-nonogram-list.css
+Author: William Johnson
+Date: N/A
 
+Styles for saved-nonograms.html, this manipulates the table. 
+*/
 #table-title {
     max-width: fit-content;
     margin-left: auto;

@@ -1,3 +1,11 @@
+/*
+File: nonogram.css
+Author: William Johnson
+Date: N/A
+
+Holds all styles for *ALL* Nonogram Input Elements and Output Elements, Data Cells and Cells, 
+the click mode buttons, and classes for data cells, and shaded/unshaded cells. 
+*/
 * {
     margin: 0;
     padding: 0;

@@ -1,4 +1,13 @@
 <?php
+/*
+File: db.php
+Author: William Johnson
+Date: N/A
+
+Manages our database for us. Contains all essential functions for data transfer between 
+saving, and creating Nonograms/Users. As well as affirming our user is signed in. 
+*/
+
 // Setting Database Filename 
 $dbName = 'data.db';
 

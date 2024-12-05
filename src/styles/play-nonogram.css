@@ -1,3 +1,13 @@
+/*
+File: play-nonogram.css
+Author: William Johnson
+Date: 2024-11-28
+
+Styles for play-nonogram.html, this mainly manipulates the area in which 
+we tell the user if the solution is correct or not.
+*/
+
+
 #solution-container {
     margin-left: auto;
     margin-right: auto;

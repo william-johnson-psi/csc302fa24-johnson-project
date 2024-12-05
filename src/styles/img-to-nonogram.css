@@ -1,3 +1,11 @@
+/*
+File: img-to-nonogram.css
+Author: William Johnson
+Date: N/A
+
+Styles for img to nonogram, at the moment we just manipulate the strength slider. 
+*/
+
 #strength-container {
     max-width: fit-content;
     margin-left: auto;

@@ -1,3 +1,12 @@
+/*
+File: main.css
+Author: William Johnson
+Date: N/A
+
+This stylesheet manipulates everything that is universal on every page. 
+(i.e) On each page, we style the header, currently signed in user, and nav bar. These are
+universal elements. This also manipulates the login/logout/signup styles in index.html 
+*/
 * {
     margin: 0;
     padding: 0;

@@ -1,4 +1,13 @@
 <?php
+/*
+File: api.php
+Author: William Johnson
+Date: N/A
+
+The API for our web app, await incoming actions and perform the necessary chores when 
+a certain action is received. Includes helpful signin, signout functions that change the 
+PHP Session Storage. 
+*/
 
 require_once('db.php');
 

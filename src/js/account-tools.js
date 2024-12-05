@@ -1,3 +1,12 @@
+/*
+File: account-tools.js
+Author: William Johnson
+Date: N/A
+
+Gives us access to some account helper functions we can use universal on all pages.
+*/
+
+
 /**
  * THIS FILE SERVES AS A HUB FOR ALL FUNCTIONS RELATED TO GRABBING/USING ACCOUNT INFORMATION
  * 

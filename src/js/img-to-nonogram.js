@@ -1,3 +1,13 @@
+/*
+File: img-to-nonogram.js
+Author: William Johnson
+Date: N/A
+
+Connected with the img-to-nonogram.html. This page will take in an input for rows, cols, and an image. 
+We process the image into a Nonogram, and then allow the user to move a slider that determines the strength of 
+the processing. Once the whole process is finished, display certian elements on the screen. (remove class '.hidden')
+*/
+
 var nonogramData = null;
 var rows = 0;
 var cols = 0;

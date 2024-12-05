@@ -1,3 +1,11 @@
+/*
+File: login-logic.js
+Author: William Johnson
+Date: N/A
+
+Handles all account actions from index.html. Instead of collecting data from each element, 
+we just use a form, and then pass in the form data. 
+*/
 $(document).ready(function() {
     /* Handle Form Submissions, this could be for signin, signup, and signout actions.
        This will grab and serialize the data from the form that was submitted  */

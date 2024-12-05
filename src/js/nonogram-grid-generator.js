@@ -1,3 +1,13 @@
+/*
+File: nonogram-grid-generator.js
+Author: William Johnson
+Date: N/A
+
+For manual-creator.html, allows the generation of a pre-made or empty grid. 
+The nonogram can then be modified, and saved to the DB, so long as the user is 
+logged in.
+*/
+
 minRowCols = 5;
 maxRowCols = 50;
 curMode = 0; /* 0 = fill, 1 = cross, 2 = erase*/
