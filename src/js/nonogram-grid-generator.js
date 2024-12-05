@@ -41,7 +41,7 @@ function initGridPageLoad() {
     urlGetParams = new URLSearchParams(window.location.search); 
     if ((urlGetParams.get('isUsingSavedNG') != null) && (urlGetParams.get('ngId') != null)) {
         $.ajax({
-            url: '../php/api.php',
+            url: 'php/api.php',
             method: 'POST', 
             data: {action:'get-nonogram', ngId : urlGetParams.get('ngId')},
             dataType: 'json',
@@ -429,7 +429,7 @@ function saveNonogram() {
         ngName: $('#name-nonogram-btn').val()
     }
     $.ajax({
-        url: '../php/api.php',
+        url: 'php/api.php',
         method: 'POST', 
         data: userData,
         dataType: 'json',

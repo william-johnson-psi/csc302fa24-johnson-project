@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     /* Make the async request to api for our NG data */
     $.ajax({
-        url: '../php/api.php',
+        url: 'php/api.php',
         method: 'POST',
         data: {action:'get-nonogram', ngId:nonogramId},
         dataType: 'json', 

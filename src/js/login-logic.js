@@ -8,7 +8,7 @@ $(document).ready(function() {
         formData = form.serialize();
         
         $.ajax({
-            url: '../php/api.php',
+            url: 'php/api.php',
             method: 'POST',
             data: formData,
             dataType: 'json',

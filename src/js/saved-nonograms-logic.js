@@ -13,7 +13,7 @@ $(document).ready(function() {
  */
 function displayNonogramList() {
     $.ajax({
-        url: '../php/api.php',
+        url: 'php/api.php',
         method: 'POST', 
         data: {action : 'get-nonogram-list'},
         dataType: 'json', 
@@ -23,11 +23,11 @@ function displayNonogramList() {
                 for (var i = 0; i < data.length; i++) {
                     table.append('<tr id="object-' + data[i].id + '">');
                     curTableObject = $('#object-' + data[i].id);
-                    curTableObject.append('<td><a href="../pages/manual-creator.html?isUsingSavedNG=true&ngId=' + data[i].id + '">' + data[i].name + '</a></td>');
+                    curTableObject.append('<td><a href="manual-creator.html?isUsingSavedNG=true&ngId=' + data[i].id + '">' + data[i].name + '</a></td>');
                     curTableObject.append('<td id="ng-id">' + data[i].id + '</td>');
                     curTableObject.append('<td>' + data[i].rows + 'x' + data[i].cols + '</td>');
-                    curTableObject.append('<td><a href="../pages/play-nonogram.html?ngSuccessfullyLoaded=true&ngId=' + data[i].id + '">PLAY' + '</a><span>  |  </span>' + 
-                        '<a href="../pages/manual-creator.html?isUsingSavedNG=true&ngId=' + data[i].id + '">EDIT</a><span>  |  </span>' + 
+                    curTableObject.append('<td><a href="play-nonogram.html?ngSuccessfullyLoaded=true&ngId=' + data[i].id + '">PLAY' + '</a><span>  |  </span>' + 
+                        '<a href="manual-creator.html?isUsingSavedNG=true&ngId=' + data[i].id + '">EDIT</a><span>  |  </span>' + 
                         '<a href="" id="btn-delete">DELETE</a>' +
                         '</td>'
                     );
@@ -44,7 +44,7 @@ function displayNonogramList() {
 
 function deleteNonogramEntry() {
     $.ajax({
-        url: '../php/api.php',
+        url: 'php/api.php',
         method: 'POST', 
         data: {
             action:'delete-nonogram',

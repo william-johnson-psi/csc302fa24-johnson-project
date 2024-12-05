@@ -18,18 +18,18 @@ $(document).ready(function() {
     /* data error */
     function() {
         $('#profile-menu').text('Logged Out');
-        homeIfLoggedOut(window.location.pathname);
+        // homeIfLoggedOut(window.location.pathname);
     },
     /* error */
     function() {
         $('#profile-menu').text('Logged Out');
-        homeIfLoggedOut(window.location.pathname);
+        // homeIfLoggedOut(window.location.pathname);
     }) 
 
     /* Click Listener for Signing Out */
     $(document).on('click', '#btn-signout', () => {
         $.ajax({
-            url: '../php/api.php',
+            url: 'php/api.php',
             method: 'POST',
             data: {action: 'signout'},
             dataType: 'json',
@@ -51,8 +51,9 @@ $(document).ready(function() {
 })
 
 
-function homeIfLoggedOut(pathname) {
-    if (pathname != '/index.html') {
-        window.location.href = '../index.html';
-    }
-}
+// function homeIfLoggedOut(pathname) {
+//     console.log(pathname);
+//     if (!pathname.includes('index.html')) {
+//         window.location.href = '/index.html';
+//     }
+// }

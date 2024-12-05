@@ -26,7 +26,7 @@
  */
 function getSignedInUserInfo(dataSuccessFunction, dataErrorFunction, errorFunction) {
     $.ajax({
-        url: '../php/api.php',
+        url: 'php/api.php',
         method: 'POST',
         data: {'action':'get-signin'},
         dataType: 'json',

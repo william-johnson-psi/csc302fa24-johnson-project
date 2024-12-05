@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nonogrammer | Manual Creator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  <!--Adding JQuery-->
-    <script src="../js/account-tools.js"></script>
-    <script src="../js/nonogram-grid-generator.js"></script>
-    <script src="../js/universal-signedin-checker.js"></script>
-    <link rel="stylesheet" href="../styles/nonogram.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <script src="js/account-tools.js"></script>
+    <script src="js/universal-signedin-checker.js"></script>
+    <script src="js/img-to-nonogram.js"></script>
+    <link rel="stylesheet" href="styles/nonogram.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/img-to-nonogram.css">
 </head>
 <body>
     <header id="universal-header">
@@ -22,24 +23,29 @@
 
     <nav id="universal-nav-bar">
         <ul>
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="manual-creator.html">Manual Creator</a></li>
             <li><a href="img-to-nonogram.html">Image to Nonogram</a></li>
             <li><a href="saved-nonograms.html">Saved Nonograms</a></li>
         </ul>
     </nav>
 
-
     <div id="nonogram-gen-inputs-container">
         <h3>Choose the size of your nonogram.</h3>
-        <form action="" method="GET">
-            <!-- I may use GET parameters, so I'll just keep this here for now.-->
-            <p style="display:inline">Rows</p><input type="number" id="nonogram-gen-rows" value="5" min="5" max="50" name="rows"><p style="display:inline">Columns</p><input type="number" id="nonogram-gen-cols" value="5" min="5" max="50" name="cols">
-            <input id="gen-nonogram-btn" type="submit" value="Generate Grid">
-        </form>
+        <!-- I may use GET parameters, so I'll just keep this here for now.-->
+        <p style="display:inline">Rows</p><input type="number" id="nonogram-gen-rows" value="5" min="5" max="50" name="rows"><p style="display:inline">Columns</p><input type="number" id="nonogram-gen-cols" value="5" min="5" max="50" name="cols">
+        <label>Select an image</label>
+        <br>
+        <input type="file" id="file-input" accept="image/*">
+        <br>
+        <input id="convert-img-ng-btn" type="submit" value="Generate Grid">
     </div>
 
-    <div id="mode-container">
+
+    <!-- We can use the canvas for image manipulation -->
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <div id="mode-container" class="hidden">
         <h3>Click Mode</h3>
         <div id="mode-buttons-container">
             <input type="button" value="Fill" class="mode-btn-selected" id="btn-fill">
@@ -48,15 +54,18 @@
         </div>
     </div>
 
-
-
     <div>        
         <table id="tile-grid-cells">
         </table>
     </div>
 
-    <div id="nonogram-submit-container">
-        <input id="name-nonogram-btn" class="center" type="text" value="Enter Nonogram Name">
+    <div id="strength-container" class="hidden">
+        <p id="strength-display">Strength: 0</p>
+        <input type="range" id="strength-slider" min="-255" max="255" value="0">
+    </div>
+
+    <div id="nonogram-submit-container" class="hidden">
+        <input id="name-nonogram-btn" class="center" type="text" placeholder="Enter Nonogram Name">
         <a href="saved-nonograms.html"><input id ="save-nonogram-btn" class="center" type="submit" value="Save Nonogram"></a>
     </div>
 
