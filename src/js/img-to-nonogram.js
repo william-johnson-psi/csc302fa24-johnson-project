@@ -14,6 +14,9 @@ $(document).ready(function() {
     /* Changes strength of grayscale->nonogram as the user slides. */
     $(document).on('input', '#strength-slider', updateStrength);
 
+    
+    /* BTN Listener for Saving Nonogram */
+    $(document).on('click', '#save-nonogram-btn', saveNonogram);
 
     /* Click Listeners for mode buttons */
     $(document).on('click', '#btn-fill', () => changeMode(0, '#btn-fill', '#btn-cross', '#btn-erase'));
@@ -22,6 +25,44 @@ $(document).ready(function() {
     /* For Nonogram Creation, Handle Filling, X'ing, or Erasing Cells */ 
     $(document).on('click', '.cell', changeCell);
 })
+
+
+/**
+ * Make a request to the API to save the present Nonogram to User. 
+ */
+function saveNonogram() {
+    rawNonogramData = getNonogramData();
+    console.log($('#name-nonogram-btn').val());
+    userData = {
+        action: 'save-nonogram',
+        rows: rawNonogramData.rows,
+        cols: rawNonogramData.cols, 
+        ngData: rawNonogramData.nonogramData,
+        ngName: $('#name-nonogram-btn').val()
+    }
+    $.ajax({
+        url: 'php/api.php',
+        method: 'POST', 
+        data: userData,
+        dataType: 'json',
+        success: function(data) {
+            if (data.success) {
+                console.log('Nonogram Data successfully saved');
+            }
+            else {
+                console.log('Nonogram data could not be saved');
+            }
+        },
+        error: function(jqXHR, status, error) {
+            console.log('Error when attempting to save Nonogram data: ' + error);
+            console.log(jqXHR);
+        }
+    })
+}
+
+
+
+
 
 function buildNonogram(nonogramData) {
     /* Set Grid*/
@@ -61,7 +102,13 @@ function buildNonogram(nonogramData) {
     updateDataCells();
 }
 
-
+/**
+ * Convert an Image to a Nonogram, this goes through the whole process of: 
+ * 1. Convert Image to Grayscale Data, and Compress. 
+ * 2. Convert Compressed Grayscale Data to Nonogram Data, start off with 0 strength 
+ * 3. Build the Nonogram on the user interface
+ * 4. Enable UI Elements 
+ */
 async function imageToNonogram() {
     try {
         compressedGrayscaleData = await convertImgToGrayscaleData();
@@ -378,10 +425,9 @@ function convertImgToGrayscaleData(firstTime) {
             for (var r = 0; r < imgHeight; r+=hIncrement) {
                 compressedGrayscaleGrid.push([]);
                 for (var c = 0; c < imgWidth; c+=wIncrement) {
-                    /* Get Unompressed Row Pixels  */ 
+                    /* In this these for loops, iterate over the CURRENT portion of the image*/
                     for (var h = 0; h < hIncrement; h++) {
                         for (var w = 0; w < wIncrement; w++) {
-                            // console.log('r: '+r+'h: ' + h  + '     rI: ' + (r+h) + '   cI: ' + (c+w)); /* Debug*/
                             curUncompressedGrayscalePixels.push(grayscaleGrid[r+h][c+w])
                         }
                     }
@@ -443,4 +489,36 @@ function getArrayAverage(num_array) {
         total += num_array[i];
     }
     return total/num_array.length;
+}
+
+
+/**
+ * Get the nonogram data in one long string and tell us how many rows/columns are in it as well.
+ * 
+ * Raw nonogram data will just be organized this:  0--00-00-00----00-0---00--00000--0-00--
+ * Where 0 = filled cell, - = empty cell 
+ * In an alogrithm that parses this, I imagine we would divvy our for loops based off the given rows/cols. 
+ * 
+ * @returns {array-key} {nonogram-data: string, rows: int, cols: int}
+ * 
+ */
+function getNonogramData() {
+    ngData = ''; 
+    curCell = null;
+    for (var i = 0; i < rows; i++) {
+        for (var v = 0; v < cols; v++) {
+            curCell = $('#row-' + i + 'col-' + v);
+            if (curCell.hasClass('cell-filled')) {
+                ngData += '0';
+            }
+            else {
+                ngData += '-';
+            }
+        }
+    }
+    return {
+        nonogramData: ngData, 
+        rows: rows,
+        cols: cols
+    }
 }
