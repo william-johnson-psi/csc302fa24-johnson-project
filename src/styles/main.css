@@ -15,21 +15,36 @@ html {
     margin-top: 1.5em;
 }
 #universal-header h1 {
+    color: white;
     position: absolute;
     left: 50%; /* Move the element -->RIGHT  50% of the screen */
     transform: translateX(-50%); /* Move the element LEFT by HALF it's width */
     margin: 0;
     font-size: 45px;
     font-family: monospace;
-
+    background: rgb(114,197,255);
+    background: linear-gradient(0deg, rgba(114,197,255,1) 0%, rgba(0,109,206,1) 35%, rgba(17,130,221,1) 75%, rgba(35,154,238,1) 100%);    
+    border: 2px solid black;
+    border-radius: 1vh;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #universal-header #profile-menu {
+    color: white;
     position: relative;
     margin-left: auto; /* Move menu to right side by adding some left margin */
     right: 6%;
     transform: translateX(50%);
-    font-size: x-large;
+    font-size: 1.6em;
+    font-family:Arial, Helvetica, sans-serif;
+    background: rgb(114,197,255);
+    background: linear-gradient(0deg, rgba(114,197,255,1) 0%, rgba(0,109,206,1) 35%, rgba(17,130,221,1) 75%, rgba(35,154,238,1) 100%);    
+    border: 2px solid black;
+    border-radius: 1vh;
+    padding: 8px;
 }
 
 #user-info {
@@ -40,6 +55,21 @@ html {
 }
 
 #btn-signout {
+    background-color: rgb(116, 0, 0);
+    color: white;
+    font-family: monospace;
+    font-size: 1em;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius:1vh;
+    padding: 6px;
+    cursor: pointer;
+}
+
+#btn-signout:hover {
+    background-color: red;
+    transition: 100ms;
+    font-size: 1.02em;
 }
 
 
@@ -72,6 +102,7 @@ html {
     padding-bottom: 0.2em; 
     font-size: 30px; 
     font-family:monospace;
+    font-weight: bold;
 }
 
 #universal-nav-bar ul li a:hover{
@@ -121,9 +152,8 @@ html {
     flex-direction: column;
     border: 4px solid #0036a1;
     border-radius: 2vh;
-    background: rgb(35,154,238);
-    background: linear-gradient(0deg, rgba(35,154,238,1) 0%, rgba(0,109,206,1) 49%, rgba(35,154,238,1) 100%);
-}
+    background: rgb(5,210,255);
+    background: linear-gradient(0deg, rgba(5,210,255,1) 0%, rgba(0,109,206,1) 25%, rgba(17,130,221,1) 73%, rgba(5,210,255,1) 100%);}
 
 .account-action-section h2 {
     text-align: center;
